@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Sneaks</title>
+    <meta name="description" content="Find our store and pop-up locations, and get in touch with Sneaks.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ===== Header & Navigation ===== -->
+    <header>
+        <div class="logo">
+            <h1>Sneaks</h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="enquiry.html">Enquiry</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ===== Main Content ===== -->
+    <main>
+
+        <section class="page-heading">
+            <h2>Get In Touch</h2>
+        </section>
+
+        <!-- Contact details -->
+        <section class="contact-details">
+            <h3>Contact Information</h3>
+            <p>Phone: 031 555 0456</p>
+            <p>Email: hello@sneaks.co.za</p>
+            <p>Instagram: @sneaks.durban</p>
+        </section>
+
+        <!-- Locations: store + pop-up (more than one location) -->
+        <section class="locations">
+            <h3>Find Us</h3>
+
+            <div class="location">
+                <h4>Main Store</h4>
+                <p>45 Florida Road, Morningside, Durban, 4001</p>
+                <!-- Map embed placeholder - to be replaced with an embedded Google Map -->
+                <div class="map-placeholder" aria-label="Map showing the main store location">
+                    <p>[ Map: Main Store, Florida Road ]</p>
+                </div>
+            </div>
+
+            <div class="location">
+                <h4>Weekend Pop-Up</h4>
+                <p>Windermere Village Market, Durban, 4001</p>
+                <!-- Map embed placeholder - to be replaced with an embedded Google Map -->
+                <div class="map-placeholder" aria-label="Map showing the pop-up market location">
+                    <p>[ Map: Weekend Pop-Up, Windermere Village Market ]</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- General contact form -->
+        <section class="contact-form">
+            <h3>Send Us a Message</h3>
+            <form id="contact-form" action="#" method="post">
+
+                <label for="contact-name">Full Name</label>
+                <input type="text" id="contact-name" name="contact-name" required>
+
+                <label for="contact-email">Email Address</label>
+                <input type="email" id="contact-email" name="contact-email" required>
+
+                <label for="contact-message">Message</label>
+                <textarea id="contact-message" name="contact-message" rows="5" required></textarea>
+
+                <button type="submit">Send Message</button>
+
+            </form>
+        </section>
+
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer>
+        <p>&copy; 2026 Sneaks. All rights reserved.</p>
+        <p><a href="contact.html">Contact Us</a></p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

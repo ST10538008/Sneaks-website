@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquiry | Sneaks</title>
+    <meta name="description" content="Reserve a pair, make an offer, or request a specific sneaker size or model.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ===== Header & Navigation ===== -->
+    <header>
+        <div class="logo">
+            <h1>Sneaks</h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="enquiry.html" class="active">Enquiry</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ===== Main Content ===== -->
+    <main>
+
+        <section class="page-heading">
+            <h2>Reserve, Offer, or Request</h2>
+            <p>Use this form to reserve a listed pair, make an offer, or ask us to source a specific model or size.</p>
+        </section>
+
+        <!-- Enquiry form: client-side validation to be added in Part 3 (JavaScript) -->
+        <section class="enquiry-form">
+            <form id="enquiry-form" action="#" method="post">
+
+                <label for="full-name">Full Name</label>
+                <input type="text" id="full-name" name="full-name" required>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="enquiry-type">Enquiry Type</label>
+                <select id="enquiry-type" name="enquiry-type" required>
+                    <option value="">-- Please select --</option>
+                    <option value="reserve">Reserve a Listed Pair</option>
+                    <option value="offer">Make an Offer</option>
+                    <option value="request">Request a Specific Model/Size</option>
+                </select>
+
+                <label for="sneaker-model">Sneaker Model (if known)</label>
+                <input type="text" id="sneaker-model" name="sneaker-model">
+
+                <label for="size">Size</label>
+                <input type="text" id="size" name="size" placeholder="e.g. UK 8">
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" placeholder="Add any extra details, such as your offer amount or preferred colourway"></textarea>
+
+                <button type="submit">Submit Enquiry</button>
+
+            </form>
+        </section>
+
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer>
+        <p>&copy; 2026 Sneaks. All rights reserved.</p>
+        <p><a href="contact.html">Contact Us</a></p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

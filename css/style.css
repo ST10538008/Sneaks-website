@@ -1,0 +1,104 @@
+/* =========================================================
+   Sneaks — Base Stylesheet
+   NOTE: This is a minimal reset/layout for Part 1 (HTML structure).
+   Full visual styling — bold black & white base with an electric
+   blue accent — will be added in Part 2 of the project.
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    color: #333;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-links a.active {
+    font-weight: bold;
+}
+
+main {
+    padding: 1rem 2rem;
+}
+
+footer {
+    padding: 1rem 2rem;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Product grid - basic layout, styling to follow in Part 2 */
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.product-card {
+    width: 220px;
+}
+
+.product-photo {
+    margin: 0;
+}
+
+.product-name {
+    font-weight: bold;
+}
+
+/* Homepage category teaser - basic layout, styling to follow in Part 2 */
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.category-card {
+    width: 220px;
+}
+
+.tagline {
+    font-weight: bold;
+}
+
+/* Basic form spacing so the enquiry/contact forms are usable
+   before full styling is applied in Part 2 */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    gap: 0.5rem;
+}
+
+.map-placeholder {
+    border: 1px dashed #999;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
