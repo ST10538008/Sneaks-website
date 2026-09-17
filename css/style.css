@@ -1,104 +1,692 @@
-/* =========================================================
-   Sneaks — Base Stylesheet
-   NOTE: This is a minimal reset/layout for Part 1 (HTML structure).
-   Full visual styling — bold black & white base with an electric
-   blue accent — will be added in Part 2 of the project.
-   ========================================================= */
+/* =============================================================
+   SNEAKS — MAIN STYLESHEET
+   Part 2: CSS Styling & Responsive Design
+
+   SECTIONS IN THIS FILE
+   1.  Reset
+   2.  Base page styles
+   3.  Headings and text
+   4.  Buttons
+   5.  Header and navigation
+   6.  Footer
+   7.  Home page: hero
+   8.  Home page: welcome text and "What We Offer" cards
+   9.  Home page: highlights list and closing call to action
+   10. About page: story, authenticity, mission and vision
+   11. Products page: product grid
+   12. Forms (Enquiry and Contact pages)
+   13. Contact page: locations
+   14. Responsive design — tablet
+   15. Responsive design — mobile
+   ============================================================= */
+
+
+/* =============================================================
+   1. RESET
+   Every browser applies its own default spacing and list styles.
+   This section clears those defaults so the site looks the same
+   no matter which browser opens it.
+   ============================================================= */
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    /* border-box means padding and border are counted INSIDE an
+       element's width, instead of being added on top of it. This
+       makes it much easier to predict how wide something will be. */
+    box-sizing: border-box;
 }
+
+ul {
+    /* Removes the default bullet points. The homepage "Why Choose Us"
+       list turns bullets back on later, on purpose. */
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    /* Makes sure an image never becomes wider than its container. */
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+/* =============================================================
+   2. BASE PAGE STYLES
+   ============================================================= */
 
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.5;
-    color: #333;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #0D0D0D;
+    background-color: #F7F7F7;
 }
 
+/* Keeps the page content from stretching edge-to-edge on very wide
+   screens, and centres it with equal space on both sides. */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+/* Adds space below every section on a page. */
+main > section {
+    margin-bottom: 5rem;
+}
+
+
+/* =============================================================
+   3. HEADINGS AND TEXT
+   ============================================================= */
+
+h2,
+h3,
+h4 {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+h4 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* The blue line under a page's main heading. Used on About,
+   Products, Enquiry and Contact. */
+.page-heading {
+    border-bottom: 3px solid #0047FF;
+    padding-bottom: 1rem;
+    margin-bottom: 3rem;
+}
+
+.page-heading p {
+    color: #6B6B6B;
+    font-size: 1.25rem;
+}
+
+
+/* =============================================================
+   4. BUTTONS
+   ============================================================= */
+
+.cta-button,
+.cta-button-secondary,
+.submit-btn {
+    display: inline-block;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.5rem 2rem;
+    border: 2px solid #0047FF;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* The main button style: filled in blue. */
+.cta-button,
+.submit-btn {
+    background-color: #0047FF;
+    color: #FFFFFF;
+}
+
+/* The secondary button style: outline only, no fill. */
+.cta-button-secondary {
+    background-color: transparent;
+    color: #0047FF;
+    margin-left: 0.5rem;
+}
+
+/* :hover — the mouse pointer is over the button.
+   This is CSS only; nothing here needs JavaScript. */
+.cta-button:hover,
+.submit-btn:hover {
+    background-color: #0036C4;
+    border-color: #0036C4;
+}
+
+.cta-button-secondary:hover {
+    background-color: #0047FF;
+    color: #FFFFFF;
+}
+
+/* :focus — the button is selected using the Tab key on a keyboard,
+   instead of clicked with a mouse. Keeping this visible matters for
+   anyone who navigates a page without a mouse. */
+.cta-button:focus,
+.cta-button-secondary:focus,
+.submit-btn:focus {
+    outline: 2px solid #0D0D0D;
+    outline-offset: 2px;
+}
+
+
+/* =============================================================
+   5. HEADER AND NAVIGATION
+   ============================================================= */
+
 header {
+    background-color: #0D0D0D;
+    /* Flexbox puts the logo and the menu on the same row. */
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
 }
 
+.logo h1 {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-size: 1.75rem;
+    color: #FFFFFF;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
 .nav-links {
     display: flex;
-    list-style: none;
-    gap: 1rem;
+    flex-direction: row;
+    gap: 2rem;
 }
 
 .nav-links a {
-    text-decoration: none;
-    color: inherit;
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
 }
 
+.nav-links a:hover {
+    color: #0047FF;
+    border-bottom-color: #0047FF;
+}
+
+/* .active marks whichever page the visitor is currently viewing. */
 .nav-links a.active {
-    font-weight: bold;
+    color: #0047FF;
+    border-bottom-color: #0047FF;
 }
 
-main {
-    padding: 1rem 2rem;
-}
+
+/* =============================================================
+   6. FOOTER
+   ============================================================= */
 
 footer {
-    padding: 1rem 2rem;
+    background-color: #0D0D0D;
+    color: #FFFFFF;
     text-align: center;
+    padding: 2rem;
+    font-size: 0.875rem;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
+footer p {
+    margin-bottom: 0.5rem;
 }
 
-/* Product grid - basic layout, styling to follow in Part 2 */
-.product-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+footer a {
+    color: #0047FF;
 }
 
-.product-card {
-    width: 220px;
+footer a:hover {
+    text-decoration: underline;
 }
 
-.product-photo {
-    margin: 0;
+
+/* =============================================================
+   7. HOME PAGE: HERO
+   The hero is the large black banner at the top of the homepage.
+   ============================================================= */
+
+.hero {
+    background-color: #0D0D0D;
+    color: #FFFFFF;
+    /* CSS Grid splits the hero into two equal-width columns:
+       one for the photo, one for the text. */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 3rem;
+    padding: 3rem;
+    border-radius: 4px;
 }
 
-.product-name {
-    font-weight: bold;
+.hero img {
+    width: 100%;
+    height: 340px;
+    /* object-fit: cover fills the box with the photo and crops any
+       extra part off, instead of squashing the picture out of shape. */
+    object-fit: cover;
+    border-radius: 4px;
 }
 
-/* Homepage category teaser - basic layout, styling to follow in Part 2 */
+.hero .tagline {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 600;
+    color: #0047FF;
+    margin-bottom: 0.5rem;
+}
+
+.hero h2 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    color: #E2E2E2;
+    margin-bottom: 1.5rem;
+}
+
+
+/* =============================================================
+   8. HOME PAGE: WELCOME TEXT AND "WHAT WE OFFER" CARDS
+   ============================================================= */
+
+.intro p {
+    font-size: 1.25rem;
+    color: #6B6B6B;
+}
+
+/* Three equal-width cards in a row. Because there are exactly three
+   cards, the grid is simply told to make three equal columns. */
 .category-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
 }
 
 .category-card {
-    width: 220px;
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 4px;
+    border-left: 4px solid #0047FF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.tagline {
-    font-weight: bold;
+.category-card p {
+    color: #6B6B6B;
+    font-size: 0.875rem;
+    margin-bottom: 0;
 }
 
-/* Basic form spacing so the enquiry/contact forms are usable
-   before full styling is applied in Part 2 */
-form {
+
+/* =============================================================
+   9. HOME PAGE: HIGHLIGHTS LIST AND CLOSING CALL TO ACTION
+   ============================================================= */
+
+/* This list is a genuine list of points, so the bullets that were
+   turned off in the reset are switched back on here on purpose. */
+.highlights ul {
+    list-style: disc;
+    padding-left: 2rem;
+}
+
+.highlights li {
+    margin-bottom: 0.5rem;
+    color: #6B6B6B;
+}
+
+.home-cta {
+    background-color: #FFFFFF;
+    text-align: center;
+    padding: 3rem 2rem;
+    border-radius: 4px;
+    border-top: 4px solid #0047FF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.home-cta p {
+    color: #6B6B6B;
+    margin-bottom: 2rem;
+}
+
+
+/* =============================================================
+   10. ABOUT PAGE: STORY, AUTHENTICITY, MISSION AND VISION
+   ============================================================= */
+
+/* The founder photo and the story text sit side by side. */
+.about-history {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.about-history img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.authenticity {
+    background-color: #0D0D0D;
+    color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 4px;
+}
+
+.authenticity h3 {
+    color: #0047FF;
+}
+
+.authenticity p {
+    margin-bottom: 0;
+    color: #E2E2E2;
+}
+
+/* .values is a wrapper placed around the Mission and Vision sections
+   in the HTML, so the two of them can sit side by side. */
+.values {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 5rem;
+}
+
+.mission,
+.vision {
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 4px;
+    border-left: 4px solid #0047FF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.mission p,
+.vision p {
+    color: #6B6B6B;
+    margin-bottom: 0;
+}
+
+
+/* =============================================================
+   11. PRODUCTS PAGE: PRODUCT GRID
+   ============================================================= */
+
+/* There are exactly four products, so the grid is given four
+   equal-width columns. */
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2rem;
+}
+
+.product-card {
+    background-color: #FFFFFF;
+    border: 1px solid #E2E2E2;
+    border-radius: 4px;
+    /* overflow: hidden trims the photo to the card's rounded corners. */
+    overflow: hidden;
+    /* A flex COLUMN stacks the photo, name, details and price on top
+       of each other, and lets the price be pushed to the bottom (see
+       .price below) so every price lines up even if some product
+       names take up two lines instead of one. */
     display: flex;
     flex-direction: column;
-    max-width: 500px;
-    gap: 0.5rem;
 }
 
-.map-placeholder {
-    border: 1px dashed #999;
-    padding: 2rem;
+.product-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+}
+
+/* Every product photo is forced into the same size box. Because the
+   four source photos are not all the same shape, object-fit: cover
+   is what keeps the grid looking neat and even. */
+.product-photo img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+.product-name {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 600;
+    padding: 1rem 1rem 0;
+}
+
+.product-meta {
+    font-size: 0.875rem;
+    color: #6B6B6B;
+    padding: 0 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* margin-top: auto pushes the price down to the bottom of the card,
+   using up whatever empty space is left above it. */
+.price {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0047FF;
+    padding: 0 1rem 1rem;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+.products-cta {
     text-align: center;
-    margin-bottom: 1rem;
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.products-cta p {
+    color: #6B6B6B;
+}
+
+
+/* =============================================================
+   12. FORMS (ENQUIRY AND CONTACT PAGES)
+   ============================================================= */
+
+form {
+    background-color: #FFFFFF;
+    /* Flexbox in a column stacks the form fields one under the other. */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 560px;
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+label {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #E2E2E2;
+    border-radius: 4px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 1rem;
+}
+
+/* :focus shows the visitor which field they are currently typing in. */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #0047FF;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.submit-btn {
+    /* Stops the button from stretching across the whole form width. */
+    align-self: flex-start;
+    margin-top: 1rem;
+}
+
+
+/* =============================================================
+   13. CONTACT PAGE: LOCATIONS
+   ============================================================= */
+
+.contact-details {
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 4px;
+    border-left: 4px solid #0047FF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.contact-details p {
+    color: #6B6B6B;
+    margin-bottom: 0.5rem;
+}
+
+/* .location-list is a wrapper placed around the two location boxes
+   in the HTML, so the two of them can sit side by side. */
+.location-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.location {
+    background-color: #FFFFFF;
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.location p {
+    color: #6B6B6B;
+    font-size: 0.875rem;
+}
+
+/* Placeholder box for the map that gets added in Part 3. */
+.map-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+    border: 2px dashed #E2E2E2;
+    border-radius: 4px;
+    background-color: #F7F7F7;
+    color: #6B6B6B;
+    font-size: 0.875rem;
+}
+
+.map-placeholder p {
+    margin-bottom: 0;
+}
+
+
+/* =============================================================
+   14. RESPONSIVE DESIGN — TABLET
+   A media query only applies its rules when the screen matches the
+   condition, so everything in here only applies on screens 1024px
+   wide or narrower (tablets and smaller).
+   ============================================================= */
+
+@media (max-width: 1024px) {
+
+    .hero h2 {
+        font-size: 2.75rem;
+    }
+
+    main {
+        padding: 2rem 1rem;
+    }
+
+    /* The two-column hero and about layouts become one column, so
+       neither the photo nor the text gets squeezed too narrow. */
+    .hero,
+    .about-history {
+        grid-template-columns: 1fr;
+    }
+
+    .hero img,
+    .about-history img {
+        height: 280px;
+    }
+
+    /* Two columns instead of three keeps the "What We Offer" cards
+       from becoming too narrow on a tablet screen. */
+    .category-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+/* =============================================================
+   15. RESPONSIVE DESIGN — MOBILE
+   Everything in here only applies on screens 600px wide or
+   narrower (most phones).
+   ============================================================= */
+
+@media (max-width: 600px) {
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    /* The header stacks the logo above the menu instead of side by
+       side, since there is not enough width for both on one line. */
+    header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    main {
+        padding: 2rem 1rem;
+    }
+
+    /* Every multi-column grid on the site becomes a single column on
+       a small screen, so nothing gets squashed too narrow to read. */
+    .product-grid,
+    .category-list,
+    .values,
+    .location-list {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-button-secondary {
+        display: block;
+        margin-left: 0;
+        margin-top: 0.5rem;
+        text-align: center;
+    }
 }
