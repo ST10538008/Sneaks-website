@@ -1,6 +1,7 @@
 /* =============================================================
    SNEAKS — MAIN STYLESHEET
-   Part 2: CSS Styling & Responsive Design
+   Web Development (WEDE5020) — Part 2: CSS Styling & Responsive Design
+   Author: Nhlakanipho Bhengu (ST10538008)
 
    SECTIONS IN THIS FILE
    1.  Reset
@@ -61,11 +62,11 @@ img {
    ============================================================= */
 
 body {
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
     line-height: 1.6;
-    color: #0D0D0D;
-    background-color: #F7F7F7;
+    color: black;
+    background-color: whitesmoke;
 }
 
 /* Keeps the page content from stretching edge-to-edge on very wide
@@ -89,7 +90,7 @@ main > section {
 h2,
 h3,
 h4 {
-    font-family: 'Poppins', Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
 }
 
@@ -115,13 +116,13 @@ p {
 /* The blue line under a page's main heading. Used on About,
    Products, Enquiry and Contact. */
 .page-heading {
-    border-bottom: 3px solid #0047FF;
+    border-bottom: 3px solid blue;
     padding-bottom: 1rem;
     margin-bottom: 3rem;
 }
 
 .page-heading p {
-    color: #6B6B6B;
+    color: dimgray;
     font-size: 1.25rem;
 }
 
@@ -134,11 +135,11 @@ p {
 .cta-button-secondary,
 .submit-btn {
     display: inline-block;
-    font-family: 'Poppins', Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
     font-size: 1rem;
     padding: 0.5rem 2rem;
-    border: 2px solid #0047FF;
+    border: 2px solid blue;
     border-radius: 4px;
     cursor: pointer;
 }
@@ -146,14 +147,14 @@ p {
 /* The main button style: filled in blue. */
 .cta-button,
 .submit-btn {
-    background-color: #0047FF;
-    color: #FFFFFF;
+    background-color: blue;
+    color: white;
 }
 
 /* The secondary button style: outline only, no fill. */
 .cta-button-secondary {
     background-color: transparent;
-    color: #0047FF;
+    color: blue;
     margin-left: 0.5rem;
 }
 
@@ -161,13 +162,13 @@ p {
    This is CSS only; nothing here needs JavaScript. */
 .cta-button:hover,
 .submit-btn:hover {
-    background-color: #0036C4;
-    border-color: #0036C4;
+    background-color: mediumblue;
+    border-color: mediumblue;
 }
 
 .cta-button-secondary:hover {
-    background-color: #0047FF;
-    color: #FFFFFF;
+    background-color: blue;
+    color: white;
 }
 
 /* :focus — the button is selected using the Tab key on a keyboard,
@@ -176,8 +177,13 @@ p {
 .cta-button:focus,
 .cta-button-secondary:focus,
 .submit-btn:focus {
-    outline: 2px solid #0D0D0D;
+    outline: 2px solid black;
     outline-offset: 2px;
+}
+
+.cta-button:active,
+.submit-btn:active {
+    background-color: mediumblue;
 }
 
 
@@ -186,7 +192,7 @@ p {
    ============================================================= */
 
 header {
-    background-color: #0D0D0D;
+    background-color: black;
     /* Flexbox puts the logo and the menu on the same row. */
     display: flex;
     flex-direction: row;
@@ -196,9 +202,9 @@ header {
 }
 
 .logo h1 {
-    font-family: 'Poppins', Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 1.75rem;
-    color: #FFFFFF;
+    color: white;
     letter-spacing: 0.15em;
     text-transform: uppercase;
 }
@@ -210,7 +216,7 @@ header {
 }
 
 .nav-links a {
-    color: #FFFFFF;
+    color: white;
     font-weight: 600;
     font-size: 0.875rem;
     padding-bottom: 4px;
@@ -218,14 +224,14 @@ header {
 }
 
 .nav-links a:hover {
-    color: #0047FF;
-    border-bottom-color: #0047FF;
+    color: blue;
+    border-bottom-color: blue;
 }
 
 /* .active marks whichever page the visitor is currently viewing. */
 .nav-links a.active {
-    color: #0047FF;
-    border-bottom-color: #0047FF;
+    color: blue;
+    border-bottom-color: blue;
 }
 
 
@@ -234,8 +240,8 @@ header {
    ============================================================= */
 
 footer {
-    background-color: #0D0D0D;
-    color: #FFFFFF;
+    background-color: black;
+    color: white;
     text-align: center;
     padding: 2rem;
     font-size: 0.875rem;
@@ -246,7 +252,7 @@ footer p {
 }
 
 footer a {
-    color: #0047FF;
+    color: blue;
 }
 
 footer a:hover {
@@ -260,8 +266,8 @@ footer a:hover {
    ============================================================= */
 
 .hero {
-    background-color: #0D0D0D;
-    color: #FFFFFF;
+    background-color: black;
+    color: white;
     /* CSS Grid splits the hero into two equal-width columns:
        one for the photo, one for the text. */
     display: grid;
@@ -282,9 +288,9 @@ footer a:hover {
 }
 
 .hero .tagline {
-    font-family: 'Poppins', Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
-    color: #0047FF;
+    color: blue;
     margin-bottom: 0.5rem;
 }
 
@@ -294,7 +300,7 @@ footer a:hover {
 }
 
 .hero p {
-    color: #E2E2E2;
+    color: gainsboro;
     margin-bottom: 1.5rem;
 }
 
@@ -305,7 +311,7 @@ footer a:hover {
 
 .intro p {
     font-size: 1.25rem;
-    color: #6B6B6B;
+    color: dimgray;
 }
 
 /* Three equal-width cards in a row. Because there are exactly three
@@ -317,15 +323,15 @@ footer a:hover {
 }
 
 .category-card {
-    background-color: #FFFFFF;
+    background-color: white;
     padding: 2rem;
     border-radius: 4px;
-    border-left: 4px solid #0047FF;
+    border-left: 4px solid blue;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .category-card p {
-    color: #6B6B6B;
+    color: dimgray;
     font-size: 0.875rem;
     margin-bottom: 0;
 }
@@ -344,20 +350,20 @@ footer a:hover {
 
 .highlights li {
     margin-bottom: 0.5rem;
-    color: #6B6B6B;
+    color: dimgray;
 }
 
 .home-cta {
-    background-color: #FFFFFF;
+    background-color: white;
     text-align: center;
     padding: 3rem 2rem;
     border-radius: 4px;
-    border-top: 4px solid #0047FF;
+    border-top: 4px solid blue;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .home-cta p {
-    color: #6B6B6B;
+    color: dimgray;
     margin-bottom: 2rem;
 }
 
@@ -382,19 +388,19 @@ footer a:hover {
 }
 
 .authenticity {
-    background-color: #0D0D0D;
-    color: #FFFFFF;
+    background-color: black;
+    color: white;
     padding: 2rem;
     border-radius: 4px;
 }
 
 .authenticity h3 {
-    color: #0047FF;
+    color: blue;
 }
 
 .authenticity p {
     margin-bottom: 0;
-    color: #E2E2E2;
+    color: gainsboro;
 }
 
 /* .values is a wrapper placed around the Mission and Vision sections
@@ -408,16 +414,16 @@ footer a:hover {
 
 .mission,
 .vision {
-    background-color: #FFFFFF;
+    background-color: white;
     padding: 2rem;
     border-radius: 4px;
-    border-left: 4px solid #0047FF;
+    border-left: 4px solid blue;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .mission p,
 .vision p {
-    color: #6B6B6B;
+    color: dimgray;
     margin-bottom: 0;
 }
 
@@ -435,8 +441,8 @@ footer a:hover {
 }
 
 .product-card {
-    background-color: #FFFFFF;
-    border: 1px solid #E2E2E2;
+    background-color: white;
+    border: 1px solid gainsboro;
     border-radius: 4px;
     /* overflow: hidden trims the photo to the card's rounded corners. */
     overflow: hidden;
@@ -462,14 +468,14 @@ footer a:hover {
 }
 
 .product-name {
-    font-family: 'Poppins', Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
     padding: 1rem 1rem 0;
 }
 
 .product-meta {
     font-size: 0.875rem;
-    color: #6B6B6B;
+    color: dimgray;
     padding: 0 1rem;
     margin-bottom: 0.5rem;
 }
@@ -477,10 +483,10 @@ footer a:hover {
 /* margin-top: auto pushes the price down to the bottom of the card,
    using up whatever empty space is left above it. */
 .price {
-    font-family: 'Poppins', Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 1.25rem;
     font-weight: 700;
-    color: #0047FF;
+    color: blue;
     padding: 0 1rem 1rem;
     margin-top: auto;
     margin-bottom: 0;
@@ -488,14 +494,14 @@ footer a:hover {
 
 .products-cta {
     text-align: center;
-    background-color: #FFFFFF;
+    background-color: white;
     padding: 2rem;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .products-cta p {
-    color: #6B6B6B;
+    color: dimgray;
 }
 
 
@@ -504,7 +510,7 @@ footer a:hover {
    ============================================================= */
 
 form {
-    background-color: #FFFFFF;
+    background-color: white;
     /* Flexbox in a column stacks the form fields one under the other. */
     display: flex;
     flex-direction: column;
@@ -516,7 +522,7 @@ form {
 }
 
 label {
-    font-family: 'Poppins', Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
     font-size: 0.875rem;
     margin-top: 0.5rem;
@@ -527,9 +533,9 @@ select,
 textarea {
     width: 100%;
     padding: 0.6rem;
-    border: 1px solid #E2E2E2;
+    border: 1px solid gainsboro;
     border-radius: 4px;
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 1rem;
 }
 
@@ -538,7 +544,7 @@ input:focus,
 select:focus,
 textarea:focus {
     outline: none;
-    border-color: #0047FF;
+    border-color: blue;
 }
 
 textarea {
@@ -558,15 +564,15 @@ textarea {
    ============================================================= */
 
 .contact-details {
-    background-color: #FFFFFF;
+    background-color: white;
     padding: 2rem;
     border-radius: 4px;
-    border-left: 4px solid #0047FF;
+    border-left: 4px solid blue;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .contact-details p {
-    color: #6B6B6B;
+    color: dimgray;
     margin-bottom: 0.5rem;
 }
 
@@ -579,14 +585,14 @@ textarea {
 }
 
 .location {
-    background-color: #FFFFFF;
+    background-color: white;
     padding: 2rem;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .location p {
-    color: #6B6B6B;
+    color: dimgray;
     font-size: 0.875rem;
 }
 
@@ -596,10 +602,10 @@ textarea {
     align-items: center;
     justify-content: center;
     min-height: 160px;
-    border: 2px dashed #E2E2E2;
+    border: 2px dashed gainsboro;
     border-radius: 4px;
-    background-color: #F7F7F7;
-    color: #6B6B6B;
+    background-color: whitesmoke;
+    color: dimgray;
     font-size: 0.875rem;
 }
 
