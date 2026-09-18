@@ -12,7 +12,9 @@
     <!-- ===== Header & Navigation ===== -->
     <header>
         <div class="logo">
-            <h1>Sneaks</h1>
+            <a href="index.html">
+                <h1>Sneaks</h1>
+            </a>
         </div>
         <nav>
             <ul class="nav-links">
@@ -47,18 +49,33 @@
             <div class="location">
                 <h4>Main Store</h4>
                 <p>45 Florida Road, Morningside, Durban, 4001</p>
-                <!-- Map embed placeholder - to be replaced with an embedded Google Map -->
-                <div class="map-placeholder" aria-label="Map showing the main store location">
-                    <p>[ Map: Main Store, Florida Road ]</p>
+                
+                <!-- Google Maps embed -->
+                <div class="map-embed">
+                    <iframe
+                        src="https://www.google.com/maps?q=45+Florida+Road,+Morningside,+Durban&output=embed"
+                        width="100%"
+                        height="250"
+                        style="border:0;"
+                        loading="lazy"
+                        title="Map showing the main store location">
+                    </iframe>
                 </div>
             </div>
 
             <div class="location">
                 <h4>Weekend Pop-Up</h4>
                 <p>Windermere Village Market, Durban, 4001</p>
-                <!-- Map embed placeholder - to be replaced with an embedded Google Map -->
-                <div class="map-placeholder" aria-label="Map showing the pop-up market location">
-                    <p>[ Map: Weekend Pop-Up, Windermere Village Market ]</p>
+                <!-- Google Maps embed - no API key needed. -->
+                <div class="map-embed">
+                    <iframe
+                        src="https://www.google.com/maps?q=Windermere+Village+Market,+Durban&output=embed"
+                        width="100%"
+                        height="250"
+                        style="border:0;"
+                        loading="lazy"
+                        title="Map showing the pop-up market location">
+                    </iframe>
                 </div>
             </div>
         </section>

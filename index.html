@@ -12,7 +12,9 @@
     <!-- ===== Header & Navigation ===== -->
     <header>
         <div class="logo">
-            <h1>Sneaks</h1>
+            <a href="index.html">
+                <h1>Sneaks</h1>
+            </a>
         </div>
         <nav>
             <ul class="nav-links">
@@ -30,7 +32,17 @@
 
         <!-- Hero section with catchphrase, intro and call to action -->
         <section class="hero">
-            <img src="images/warren-jones-LFlVuWLjYEo-unsplash.jpg" alt="Featured limited-edition sneaker displayed against a plain background" width="600">
+            <!-- srcset lists the same photo at two sizes. The number after each
+                    file (480w, 3024w) tells the browser exactly how wide that file
+                    is in pixels, so it can download whichever one fits the screen
+                    instead of always grabbing the full 3024px original. -->
+            <img
+                src="images/warren-jones-LFlVuWLjYEo-unsplash.jpg"
+                srcset="images/warren-jones-LFlVuWLjYEo-unsplash-480.jpg 480w,
+                        images/warren-jones-LFlVuWLjYEo-unsplash.jpg 3024w"
+                sizes="(max-width: 1024px) 90vw, 50vw"
+                alt="Featured limited-edition sneaker displayed against a plain background"
+                width="600">
             <div class="hero-text">
                 <p class="tagline">Step Into Something Rare</p>
                 <h2>Rare Sneakers. Guaranteed Authentic.</h2>

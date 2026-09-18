@@ -12,7 +12,9 @@
     <!-- ===== Header & Navigation ===== -->
     <header>
         <div class="logo">
-            <h1>Sneaks</h1>
+            <a href="index.html">
+                <h1>Sneaks</h1>
+            </a>
         </div>
         <nav>
             <ul class="nav-links">
@@ -34,7 +36,17 @@
 
         <!-- History / founder story -->
         <section class="about-history">
-            <img src="images/solesavy-G6vLu_5egEo-unsplash.jpg" alt="Founder of Sneaks sorting through a collection of sneakers" width="500">
+            <!-- srcset lists the same photo at two sizes, and sizes tells the
+                browser how much space the image will take up on the page, so
+                it can pick whichever file actually fits instead of always
+                downloading the biggest one. -->
+            <img
+                src="images/solesavy-G6vLu_5egEo-unsplash.jpg"
+                srcset="images/solesavy-G6vLu_5egEo-unsplash-480.jpg 480w,
+                        images/solesavy-G6vLu_5egEo-unsplash.jpg 2731w"
+                sizes="(max-width: 1024px) 90vw, 40vw"
+                alt="Founder of Sneaks sorting through a collection of sneakers"
+                width="500">
             <div class="about-text">
                 <h3>How We Started</h3>
                 <p>
