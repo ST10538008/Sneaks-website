@@ -958,10 +958,10 @@ function initContactForm() {
 
 function showEmailPreview(box, email) {
     const heading = document.createElement('h2');
-    heading.textContent = 'Your email is ready';
+    heading.textContent = 'Your message is ready to send';
 
     const intro = document.createElement('p');
-    intro.textContent = 'Check the details, then press the button to open it in your email app and send it.';
+    intro.textContent = 'Check the details below. When you are happy, press Send Email and your email app will open with this message ready to send.';
 
     const details = document.createElement('dl');
     details.className = 'email-details';
@@ -980,7 +980,7 @@ function showEmailPreview(box, email) {
     const button = document.createElement('a');
     button.className = 'cta-button';
     button.href = email.mailtoLink;
-    button.textContent = 'Open in my email app';
+    button.textContent = 'Send Email';
 
     box.className = 'response-box success';
     box.replaceChildren(heading, intro, details, message, button);
@@ -990,7 +990,7 @@ function showEmailPreview(box, email) {
 
 
 /* =============================================================
-   11. INTERACTIVE MAP (LEAFLET + OPENSTREETMAP)
+   11. INTERACTIVE MAP (LEAFLET + ESRI MAPS)
    One map with a marker for each location. The "Show on map"
    buttons fly the map to that location.
    ============================================================= */
@@ -1008,14 +1008,71 @@ function initMap() {
     }
 
     const map = L.map(mapElement, { scrollWheelZoom: false });
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+
+    /* ---- Base maps (all from Esri, which needs no API key) ----
+       The plain OpenStreetMap server blocks pages opened straight from
+       a file, and CARTO now requires a key, so Esri is used instead. */
+    const esri = 'https://server.arcgisonline.com/ArcGIS/rest/services/';
+    const esriCredit = 'Tiles &copy; Esri';
+
+    const street = L.tileLayer(esri + 'World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
         maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+        attribution: esriCredit + ' &mdash; Source: Esri, DeLorme, NAVTEQ, USGS'
+    });
+
+    const light = L.tileLayer(esri + 'Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        maxNativeZoom: 16,
+        maxZoom: 19,
+        attribution: esriCredit + ' &mdash; Source: Esri, HERE, Garmin, OpenStreetMap contributors'
+    });
+
+    /* Satellite photos plus a layer of place names and borders on top,
+       so the satellite view is still easy to read. */
+    const satellite = L.layerGroup([
+        L.tileLayer(esri + 'World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19,
+            attribution: esriCredit + ' &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community'
+        }),
+        L.tileLayer(esri + 'Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19
+        })
+    ]);
+
+    street.addTo(map);   // the view shown first
+
+    /* The layer switcher (top right) lets the visitor change view. */
+    L.control.layers({ 'Street': street, 'Light': light, 'Satellite': satellite }, null,
+                     { position: 'topright' }).addTo(map);
+    L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
+
+    /* The scroll wheel only zooms the map after the visitor clicks it,
+       so the page can still be scrolled normally past the map. */
+    map.on('focus', () => map.scrollWheelZoom.enable());
+    map.on('blur', () => map.scrollWheelZoom.disable());
+
+    /* ---- Custom branded markers (styled in style.css) ---- */
+    const pinIcon = L.divIcon({
+        className: 'sneaks-pin',
+        html: '<span></span>',
+        iconSize: [34, 42],
+        iconAnchor: [17, 42],
+        popupAnchor: [0, -38]
+    });
 
     const markers = STORE_LOCATIONS.map(place => {
-        const marker = L.marker([place.lat, place.lng]).addTo(map);
-        marker.bindPopup(`<strong>${escapeHTML(place.name)}</strong><br>${escapeHTML(place.address)}`);
+        const marker = L.marker([place.lat, place.lng], {
+            icon: pinIcon,
+            title: place.name,
+            alt: place.name + ' location',
+            riseOnHover: true
+        }).addTo(map);
+        const directions = `https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lng}`;
+        marker.bindPopup(
+            `<div class="map-popup">` +
+            `<strong>${escapeHTML(place.name)}</strong>` +
+            `<span>${escapeHTML(place.address)}</span>` +
+            `<a href="${directions}" target="_blank" rel="noopener noreferrer">Get directions</a>` +
+            `</div>`);
         return marker;
     });
 
