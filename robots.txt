@@ -1,0 +1,7 @@
+# robots.txt for Sneaks
+# All search engine crawlers may read the whole site.
+User-agent: *
+Allow: /
+
+# Where the sitemap lives:
+Sitemap: https://st10538008.github.io/Sneaks-website/sitemap.xml
