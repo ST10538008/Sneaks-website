@@ -1,6 +1,8 @@
 /* =============================================================
    SNEAKS — MAIN STYLESHEET
-   Web Development (WEDE5020) — Part 2: CSS Styling & Responsive Design
+   Web Development (WEDE5020)
+   Part 2: CSS Styling & Responsive Design
+   Part 3: Enhanced Functionality & SEO (extra styles)
    Author: Nhlakanipho Bhengu (ST10538008)
 
    SECTIONS IN THIS FILE
@@ -16,9 +18,12 @@
    10. Products page
    11. Forms (Enquiry and Contact)
    12. Contact page: locations and maps
-   12b. Part 3 additions (toolbar, lightbox, accordion, forms, map)
+   12b. Part 3 additions (toolbar, lightbox, accordion, form errors,
+        reply boxes, back-to-top button, scroll animations)
    13. Responsive design — tablet (max 1024px)
    14. Responsive design — mobile (max 600px)
+   15. Part 3 SEO additions (internal links, footer links)
+   16. Map styling (custom pins, pop-ups, map controls)
    ============================================================= */
 
 
