@@ -4,7 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sneaks | Authentic Sneaker Resale in Durban</title>
-    <meta name="description" content="Sneaks is a Durban-based sneaker resale store specialising in rare, limited-edition and pre-owned sneakers with a guaranteed authenticity promise.">
+    <meta name="description" content="Sneaks is a Durban sneaker resale store for rare, limited-edition and pre-owned sneakers. Every pair is authenticity-checked. Browse stock or reserve a pair.">
+    <meta name="keywords" content="sneaker resale Durban, authentic sneakers South Africa, limited edition sneakers, pre-owned sneakers, deadstock sneakers, Air Jordan Durban">
+    <meta name="author" content="Nhlakanipho Bhengu">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0b0b0b">
+    <link rel="canonical" href="https://st10538008.github.io/Sneaks-website/">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+    <!-- Open Graph / Twitter: the preview card shown when the page is shared -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Sneaks">
+    <meta property="og:locale" content="en_ZA">
+    <meta property="og:title" content="Sneaks | Authentic Sneaker Resale in Durban">
+    <meta property="og:description" content="Sneaks is a Durban sneaker resale store for rare, limited-edition and pre-owned sneakers. Every pair is authenticity-checked. Browse stock or reserve a pair.">
+    <meta property="og:url" content="https://st10538008.github.io/Sneaks-website/">
+    <meta property="og:image" content="https://st10538008.github.io/Sneaks-website/images/sneaks-social-share.jpg">
+    <meta property="og:image:alt" content="Sneaks: a collection of authentic resale sneakers">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sneaks | Authentic Sneaker Resale in Durban">
+    <meta name="twitter:description" content="Sneaks is a Durban sneaker resale store for rare, limited-edition and pre-owned sneakers. Every pair is authenticity-checked. Browse stock or reserve a pair.">
+    <meta name="twitter:image" content="https://st10538008.github.io/Sneaks-website/images/sneaks-social-share.jpg">
+
+    <!-- Security: only allow scripts, styles, images and requests from the places this site uses -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://jsonplaceholder.typicode.com; form-action 'self' mailto: https://jsonplaceholder.typicode.com; base-uri 'self'; object-src 'none'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <!-- Structured data: helps Google show the business in local results -->
+    <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "ShoeStore",
+  "name": "Sneaks",
+  "description": "Durban sneaker resale store selling rare, limited-edition and pre-owned sneakers with an authenticity guarantee.",
+  "url": "https://st10538008.github.io/Sneaks-website/",
+  "image": "https://st10538008.github.io/Sneaks-website/images/sneaks-social-share.jpg",
+  "email": "hello@sneaks.co.za",
+  "priceRange": "R2400 - R10900",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "45 Florida Road, Morningside",
+    "addressLocality": "Durban",
+    "postalCode": "4001",
+    "addressCountry": "ZA"
+  },
+  "areaServed": "Durban, South Africa",
+  "sameAs": [
+    "https://www.instagram.com/sneaks.durban"
+  ]
+}
+    </script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -13,7 +62,7 @@
     <header>
         <div class="logo">
             <a href="index.html">
-                <h1>Sneaks</h1>
+                <span class="site-name">Sneaks</span>
             </a>
         </div>
         <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open or close the navigation menu">
@@ -39,15 +88,17 @@
                     is in pixels, so it can download whichever one fits the screen
                     instead of always grabbing the full 3024px original. -->
             <img
-                src="images/warren-jones-LFlVuWLjYEo-unsplash.jpg"
-                srcset="images/warren-jones-LFlVuWLjYEo-unsplash-480.jpg 480w,
-                        images/warren-jones-LFlVuWLjYEo-unsplash.jpg 3024w"
+                src="images/sneaker-collection-hero-1200.jpg"
+                fetchpriority="high"
+                decoding="async"
+                srcset="images/sneaker-collection-hero-480.jpg 480w,
+                        images/sneaker-collection-hero-1200.jpg 1200w"
                 sizes="(max-width: 1024px) 90vw, 50vw"
                 alt="Featured limited-edition sneaker displayed against a plain background"
                 width="600">
             <div class="hero-text">
                 <p class="tagline">Step Into Something Rare</p>
-                <h2>Rare Sneakers. Guaranteed Authentic.</h2>
+                <h1>Rare Sneakers. Guaranteed Authentic.</h1>
                 <p>
                     Curated resale sneakers for collectors and streetwear enthusiasts. From
                     deadstock grails to everyday favourites, every pair is hand-picked and
@@ -112,9 +163,9 @@
     <!-- ===== Footer ===== -->
     <footer>
         <p>&copy; 2026 Sneaks. All rights reserved.</p>
-        <p><a href="contact.html">Contact Us</a></p>
+        <p class="footer-links"><a href="index.html">Home</a> | <a href="about.html">About Us</a> | <a href="products.html">Products</a> | <a href="enquiry.html">Enquiry</a> | <a href="contact.html">Contact Us</a></p>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script>
 </body>
 </html>
