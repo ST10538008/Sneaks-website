@@ -4,209 +4,368 @@
    Author: Nhlakanipho Bhengu (ST10538008)
 
    SECTIONS IN THIS FILE
-   1.  Reset
-   2.  Base page styles
-   3.  Headings and text
-   4.  Buttons
-   5.  Header and navigation
-   6.  Footer
-   7.  Home page: hero
-   8.  Home page: welcome text and "What We Offer" cards
-   9.  Home page: highlights list and closing call to action
-   10. About page: story, authenticity, mission and vision
-   11. Products page: product grid
-   12. Forms (Enquiry and Contact pages)
-   13. Contact page: locations
-   14. Responsive design — tablet
-   15. Responsive design — mobile
+   1.  Design tokens (CSS variables: colours, fonts, sizes)
+   2.  Default style code (reset + base page styles)
+   3.  Typography
+   4.  Links
+   5.  Buttons
+   6.  Header and navigation (incl. mobile menu button)
+   7.  Footer
+   8.  Home page
+   9.  About page
+   10. Products page
+   11. Forms (Enquiry and Contact)
+   12. Contact page: locations and maps
+   13. Responsive design — tablet (max 1024px)
+   14. Responsive design — mobile (max 600px)
    ============================================================= */
 
 
 /* =============================================================
-   1. RESET
-   Every browser applies its own default spacing and list styles.
-   This section clears those defaults so the site looks the same
-   no matter which browser opens it.
+    1. DESIGN TOKENS
+   Every colour, font and size is stored once here as a CSS
+   variable and reused with var(--name). Changing a value here
+   changes it on every page, and it keeps the look consistent.
+   ============================================================= */
+
+:root {
+    /* Colours */
+    --black: #0b0b0b;
+    --white: #ffffff;
+    --off-white: #f5f5f5;
+    --grey-text: #555555;      /* 6.8:1 contrast on off-white */
+    --grey-line: #dcdcdc;
+    --blue: #3b77ff;           /* electric blue: for accents on BLACK */
+    --blue-deep: #1747c4;      /* darker blue: for text/buttons on WHITE */
+    --blue-darker: #0f3496;    /* hover state for deep blue */
+    --valid: #1e8e4e;
+    --invalid: #d93025;
+
+    /* Font families */
+    --font-heading: "Arial Black", "Helvetica Neue", Arial, sans-serif;
+    --font-body: "Helvetica Neue", Arial, sans-serif;
+
+    /* Font sizes (these are overridden inside the media queries
+       at the bottom of this file, so text scales on small screens) */
+    --fs-base: 1rem;
+    --fs-small: 0.875rem;
+    --fs-lead: 1.25rem;
+    --fs-h2: 2.5rem;
+    --fs-h3: 1.75rem;
+    --fs-h4: 1.25rem;
+    --fs-hero: 3.5rem;
+    --fs-logo: 1.75rem;
+
+    /* Effects */
+    --radius: 6px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.18);
+    --speed: 0.25s;
+}
+
+
+/* =============================================================
+   2. DEFAULT STYLE CODE (RESET + BASE)
+   Browsers add their own default spacing and list styles. The
+   reset clears them so the site looks the same everywhere.
    ============================================================= */
 
 * {
     margin: 0;
     padding: 0;
-    /* border-box means padding and border are counted INSIDE an
-       element's width, instead of being added on top of it. This
-       makes it much easier to predict how wide something will be. */
+    /* border-box counts padding and border INSIDE an element's width. */
     box-sizing: border-box;
 }
 
+html {
+    /* Smooth scrolling when jumping to an on-page link. */
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--black);
+    background-color: var(--off-white);
+}
+
 ul {
-    /* Removes the default bullet points. The homepage "Why Choose Us"
-       list turns bullets back on later, on purpose. */
     list-style: none;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
 img {
-    /* Makes sure an image never becomes wider than its container. */
     max-width: 100%;
     height: auto;
     display: block;
 }
 
-
-/* =============================================================
-   2. BASE PAGE STYLES
-   ============================================================= */
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: black;
-    background-color: whitesmoke;
+/* ::selection styles the text a visitor highlights with the mouse. */
+::selection {
+    background-color: var(--blue);
+    color: var(--white);
 }
 
-/* Keeps the page content from stretching edge-to-edge on very wide
-   screens, and centres it with equal space on both sides. */
 main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 3rem 2rem;
 }
 
-/* Adds space below every section on a page. */
 main > section {
     margin-bottom: 5rem;
 }
 
+/* :last-child removes the extra gap under the final section so the
+   footer is not pushed too far away from the content. */
+main > section:last-child {
+    margin-bottom: 0;
+}
+
 
 /* =============================================================
-   3. HEADINGS AND TEXT
+   3. TYPOGRAPHY
+   Two font families (heading + body), a size scale, weights,
+   line heights and letter spacing, so text is styled consistently.
    ============================================================= */
 
 h2,
 h3,
 h4 {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-heading);
     font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
 }
 
 h2 {
-    font-size: 2.5rem;
+    font-size: var(--fs-h2);
     margin-bottom: 1rem;
 }
 
 h3 {
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
+    font-size: var(--fs-h3);
+    margin-bottom: 0.75rem;
 }
 
 h4 {
-    font-size: 1.25rem;
+    font-size: var(--fs-h4);
     margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 p {
     margin-bottom: 1rem;
+    max-width: 70ch;   /* keeps lines a comfortable reading length */
 }
 
-/* The blue line under a page's main heading. Used on About,
-   Products, Enquiry and Contact. */
+/* :last-child — the final paragraph in any box needs no bottom
+   margin, otherwise the box gets extra empty space at the bottom. */
+p:last-child {
+    margin-bottom: 0;
+}
+
+strong {
+    font-weight: 700;
+}
+
+/* ::placeholder styles the grey hint text inside form fields. */
+::placeholder {
+    color: #8a8a8a;
+    font-style: italic;
+}
+
+/* The page heading block at the top of About/Products/Enquiry/Contact */
 .page-heading {
-    border-bottom: 3px solid blue;
     padding-bottom: 1rem;
     margin-bottom: 3rem;
+    border-bottom: 1px solid var(--grey-line);
+    position: relative;
+}
+
+/* ::after draws a short thick blue bar over the grey line. */
+.page-heading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 90px;
+    height: 4px;
+    background-color: var(--blue);
 }
 
 .page-heading p {
-    color: dimgray;
-    font-size: 1.25rem;
+    color: var(--grey-text);
+    font-size: var(--fs-lead);
 }
 
 
 /* =============================================================
-   4. BUTTONS
+   4. LINKS
+   Each link state has its own style: :link (unvisited),
+   :visited, :hover, :focus-visible (keyboard) and :active
+   (the moment it is clicked).
+   :not() leaves buttons out so they keep their own styles.
+   ============================================================= */
+
+a {
+    text-decoration: none;
+}
+   main a:not(.cta-button):not(.cta-button-secondary):link {
+    color: var(--blue-deep);
+    text-decoration: none;
+    text-underline-offset: 3px;
+}
+
+main a:not(.cta-button):not(.cta-button-secondary):visited {
+    color: #5a2ea6;
+}
+
+main a:not(.cta-button):not(.cta-button-secondary):hover {
+    color: var(--blue-darker);
+    text-decoration-thickness: 2px;
+}
+
+main a:not(.cta-button):not(.cta-button-secondary):active {
+    color: var(--black);
+}
+
+/* :focus-visible shows an outline ONLY for keyboard users, so
+   mouse users do not see an outline after clicking. */
+a:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+
+/* =============================================================
+   5. BUTTONS
    ============================================================= */
 
 .cta-button,
 .cta-button-secondary,
 .submit-btn {
     display: inline-block;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.5rem 2rem;
-    border: 2px solid blue;
-    border-radius: 4px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: var(--fs-base);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 0.75rem 2rem;
+    border: 2px solid var(--blue-deep);
+    border-radius: var(--radius);
     cursor: pointer;
+    /* transition makes colour changes fade smoothly instead of snapping */
+    transition: background-color var(--speed), color var(--speed),
+                transform var(--speed), box-shadow var(--speed);
 }
 
-/* The main button style: filled in blue. */
+/* Main button: filled blue */
 .cta-button,
 .submit-btn {
-    background-color: blue;
-    color: white;
+    background-color: var(--blue-deep);
+    color: var(--white);
 }
 
-/* The secondary button style: outline only, no fill. */
+/* Secondary button: outline only */
 .cta-button-secondary {
     background-color: transparent;
-    color: blue;
+    color: var(--blue-deep);
     margin-left: 0.5rem;
 }
 
-/* :hover — the mouse pointer is over the button.
-   This is CSS only; nothing here needs JavaScript. */
+/* On the black hero and the black authenticity box, the outline
+   button must use the lighter blue so it can still be read. */
+.hero .cta-button-secondary {
+    color: var(--white);
+    border-color: var(--white);
+}
+
+/* :hover — mouse pointer is over the button */
 .cta-button:hover,
 .submit-btn:hover {
-    background-color: mediumblue;
-    border-color: mediumblue;
+    background-color: var(--blue-darker);
+    border-color: var(--blue-darker);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(23, 71, 196, 0.35);
 }
 
 .cta-button-secondary:hover {
-    background-color: blue;
-    color: white;
+    background-color: var(--blue-deep);
+    color: var(--white);
+    border-color: var(--blue-deep);
+    transform: translateY(-2px);
 }
 
-/* :focus — the button is selected using the Tab key on a keyboard,
-   instead of clicked with a mouse. Keeping this visible matters for
-   anyone who navigates a page without a mouse. */
-.cta-button:focus,
-.cta-button-secondary:focus,
-.submit-btn:focus {
-    outline: 2px solid black;
-    outline-offset: 2px;
+.hero .cta-button-secondary:hover {
+    background-color: var(--white);
+    color: var(--black);
 }
 
+/* :focus-visible — selected with the Tab key */
+.cta-button:focus-visible,
+.cta-button-secondary:focus-visible,
+.submit-btn:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+}
+
+/* :active — the moment the button is pressed down */
 .cta-button:active,
+.cta-button-secondary:active,
 .submit-btn:active {
-    background-color: mediumblue;
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+/* :disabled — used in Part 3 when JavaScript blocks the button */
+.submit-btn:disabled {
+    background-color: var(--grey-line);
+    border-color: var(--grey-line);
+    color: var(--grey-text);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 
 /* =============================================================
-   5. HEADER AND NAVIGATION
+   6. HEADER AND NAVIGATION
    ============================================================= */
 
 header {
-    background-color: black;
-    /* Flexbox puts the logo and the menu on the same row. */
+    background-color: var(--black);
+    border-bottom: 3px solid var(--blue);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
+    position: sticky;     /* the header stays visible while scrolling */
+    top: 0;
+    z-index: 100;
+}
+
+.logo a {
+    display: inline-block;
 }
 
 .logo h1 {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.75rem;
-    color: white;
+    font-family: var(--font-heading);
+    font-size: var(--fs-logo);
+    font-weight: 900;
+    color: var(--white);
     letter-spacing: 0.15em;
     text-transform: uppercase;
+    line-height: 1.1;
+    transition: color var(--speed);
+}
+
+.logo a:hover h1 {
+    color: var(--blue);
 }
 
 .nav-links {
@@ -216,106 +375,194 @@ header {
 }
 
 .nav-links a {
-    color: white;
+    position: relative;
+    display: inline-block;
+    color: var(--white);
     font-weight: 600;
-    font-size: 0.875rem;
-    padding-bottom: 4px;
-    border-bottom: 2px solid transparent;
+    font-size: var(--fs-small);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.4rem 0;
+    transition: color var(--speed);
 }
 
-.nav-links a:hover {
-    color: blue;
-    border-bottom-color: blue;
+/* ::after is the blue underline. It starts with zero width and
+   grows to full width on hover, focus, and for the current page. */
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--blue);
+    transition: width var(--speed);
 }
 
-/* .active marks whichever page the visitor is currently viewing. */
+.nav-links a:hover,
+.nav-links a:focus-visible,
 .nav-links a.active {
-    color: blue;
-    border-bottom-color: blue;
+    color: var(--blue);
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-links a:active {
+    color: var(--white);
+}
+
+/* ---- Mobile menu button (hamburger) ----
+   This uses a hidden checkbox + a label. Ticking the checkbox
+   (by tapping the label) opens the menu, using the :checked
+   pseudo-class. It needs no JavaScript. Hidden on desktop. */
+.nav-toggle {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.nav-toggle-label {
+    display: none;
+    cursor: pointer;
+    padding: 0.75rem 0.5rem;
+}
+
+/* The three lines of the hamburger icon are one <span> plus its
+   ::before and ::after pseudo-elements. */
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background-color: var(--white);
+    border-radius: 2px;
+    transition: transform var(--speed), background-color var(--speed);
+}
+
+.nav-toggle-label span {
+    position: relative;
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+}
+
+.nav-toggle-label span::before {
+    top: -9px;
+}
+
+.nav-toggle-label span::after {
+    top: 9px;
+}
+
+/* :focus-visible — outline the icon when reached with the Tab key */
+.nav-toggle:focus-visible + .nav-toggle-label {
+    outline: 3px solid var(--blue);
+    border-radius: var(--radius);
+}
+
+/* :checked — menu is open, so the icon turns into an X */
+.nav-toggle:checked + .nav-toggle-label span {
+    background-color: transparent;
+}
+
+.nav-toggle:checked + .nav-toggle-label span::before {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.nav-toggle:checked + .nav-toggle-label span::after {
+    transform: translateY(-9px) rotate(-45deg);
 }
 
 
 /* =============================================================
-   6. FOOTER
+   7. FOOTER
    ============================================================= */
 
 footer {
-    background-color: black;
-    color: white;
+    background-color: var(--black);
+    border-top: 3px solid var(--blue);
+    color: var(--white);
     text-align: center;
     padding: 2rem;
-    font-size: 0.875rem;
+    font-size: var(--fs-small);
 }
 
 footer p {
-    margin-bottom: 0.5rem;
+    margin: 0 auto 0.5rem;
 }
 
-footer a {
-    color: blue;
+footer a:link,
+footer a:visited {
+    color: var(--blue);
+    text-decoration: none;
+    text-underline-offset: 3px;
 }
 
 footer a:hover {
-    text-decoration: underline;
+    color: var(--white);
 }
 
 
 /* =============================================================
-   7. HOME PAGE: HERO
-   The hero is the large black banner at the top of the homepage.
+   8. HOME PAGE
    ============================================================= */
 
+/* ---- Hero ---- */
 .hero {
-    background-color: black;
-    color: white;
-    /* CSS Grid splits the hero into two equal-width columns:
-       one for the photo, one for the text. */
+    background: linear-gradient(135deg, var(--black) 55%, #0d2255 100%);
+    color: var(--white);
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 3rem;
     padding: 3rem;
-    border-radius: 4px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-hover);
 }
 
 .hero img {
     width: 100%;
     height: 340px;
-    /* object-fit: cover fills the box with the photo and crops any
-       extra part off, instead of squashing the picture out of shape. */
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: var(--radius);
 }
 
 .hero .tagline {
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 600;
-    color: blue;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: var(--fs-small);
+    color: var(--blue);
     margin-bottom: 0.5rem;
 }
 
 .hero h2 {
-    font-size: 3.5rem;
+    font-size: var(--fs-hero);
+    line-height: 1.05;
     margin-bottom: 1rem;
 }
 
 .hero p {
-    color: gainsboro;
+    color: #e0e0e0;
     margin-bottom: 1.5rem;
 }
 
-
-/* =============================================================
-   8. HOME PAGE: WELCOME TEXT AND "WHAT WE OFFER" CARDS
-   ============================================================= */
-
+/* ---- Intro text ---- */
 .intro p {
-    font-size: 1.25rem;
-    color: dimgray;
+    font-size: var(--fs-lead);
+    color: var(--grey-text);
 }
 
-/* Three equal-width cards in a row. Because there are exactly three
-   cards, the grid is simply told to make three equal columns. */
+/* ---- "What We Offer" cards ---- */
 .category-list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -323,26 +570,31 @@ footer a:hover {
 }
 
 .category-card {
-    background-color: white;
+    background-color: var(--white);
     padding: 2rem;
-    border-radius: 4px;
-    border-left: 4px solid blue;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius);
+    border-left: 4px solid var(--blue);
+    box-shadow: var(--shadow);
+    transition: transform var(--speed), box-shadow var(--speed);
+}
+
+.category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* :nth-child — the second card gets a black accent so the three
+   cards alternate instead of looking identical. */
+.category-card:nth-child(2) {
+    border-left-color: var(--black);
 }
 
 .category-card p {
-    color: dimgray;
-    font-size: 0.875rem;
-    margin-bottom: 0;
+    color: var(--grey-text);
+    font-size: var(--fs-small);
 }
 
-
-/* =============================================================
-   9. HOME PAGE: HIGHLIGHTS LIST AND CLOSING CALL TO ACTION
-   ============================================================= */
-
-/* This list is a genuine list of points, so the bullets that were
-   turned off in the reset are switched back on here on purpose. */
+/* ---- Highlights list ---- */
 .highlights ul {
     list-style: disc;
     padding-left: 2rem;
@@ -350,29 +602,44 @@ footer a:hover {
 
 .highlights li {
     margin-bottom: 0.5rem;
-    color: dimgray;
+    color: var(--grey-text);
 }
 
+/* ::marker styles the bullet point itself */
+.highlights li::marker {
+    color: var(--blue-deep);
+}
+
+.highlights li:last-child {
+    margin-bottom: 0;
+}
+
+/* :nth-child(odd) — every second line gets a darker text colour,
+   which makes a long list easier to scan. */
+.highlights li:nth-child(odd) {
+    color: var(--black);
+}
+
+/* ---- Closing call to action ---- */
 .home-cta {
-    background-color: white;
+    background-color: var(--white);
     text-align: center;
     padding: 3rem 2rem;
-    border-radius: 4px;
-    border-top: 4px solid blue;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius);
+    border-top: 4px solid var(--blue);
+    box-shadow: var(--shadow);
 }
 
 .home-cta p {
-    color: dimgray;
-    margin-bottom: 2rem;
+    color: var(--grey-text);
+    margin: 0 auto 2rem;
 }
 
 
 /* =============================================================
-   10. ABOUT PAGE: STORY, AUTHENTICITY, MISSION AND VISION
+   9. ABOUT PAGE
    ============================================================= */
 
-/* The founder photo and the story text sit side by side. */
 .about-history {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -384,27 +651,36 @@ footer a:hover {
     width: 100%;
     height: 360px;
     object-fit: cover;
-    border-radius: 4px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+/* ::first-letter makes the first letter of the story larger */
+.about-text p:first-of-type::first-letter {
+    font-family: var(--font-heading);
+    font-size: 2.5em;
+    color: var(--blue-deep);
+    float: left;
+    line-height: 1;
+    padding-right: 0.4rem;
 }
 
 .authenticity {
-    background-color: black;
-    color: white;
+    background-color: var(--black);
+    color: var(--white);
     padding: 2rem;
-    border-radius: 4px;
+    border-radius: var(--radius);
+    border-left: 6px solid var(--blue);
 }
 
 .authenticity h3 {
-    color: blue;
+    color: var(--blue);
 }
 
 .authenticity p {
-    margin-bottom: 0;
-    color: gainsboro;
+    color: #e0e0e0;
 }
 
-/* .values is a wrapper placed around the Mission and Vision sections
-   in the HTML, so the two of them can sit side by side. */
 .values {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -414,117 +690,123 @@ footer a:hover {
 
 .mission,
 .vision {
-    background-color: white;
+    background-color: var(--white);
     padding: 2rem;
-    border-radius: 4px;
-    border-left: 4px solid blue;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius);
+    border-left: 4px solid var(--blue);
+    box-shadow: var(--shadow);
 }
 
 .mission p,
 .vision p {
-    color: dimgray;
-    margin-bottom: 0;
+    color: var(--grey-text);
 }
 
 
 /* =============================================================
-   11. PRODUCTS PAGE: PRODUCT GRID
+   10. PRODUCTS PAGE
    ============================================================= */
 
-/* There are exactly four products, so the grid is given four
-   equal-width columns. */
 .product-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
 }
 
 .product-card {
-    background-color: white;
-    border: 1px solid gainsboro;
-    border-radius: 4px;
-    /* overflow: hidden trims the photo to the card's rounded corners. */
+    background-color: var(--white);
+    border: 1px solid var(--grey-line);
+    border-radius: var(--radius);
     overflow: hidden;
-    /* A flex COLUMN stacks the photo, name, details and price on top
-       of each other, and lets the price be pushed to the bottom (see
-       .price below) so every price lines up even if some product
-       names take up two lines instead of one. */
     display: flex;
     flex-direction: column;
+    transition: transform var(--speed), box-shadow var(--speed);
 }
 
-.product-card:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+/* The card lifts up when hovered, or when a keyboard user tabs to
+   something inside it (:focus-within). */
+.product-card:hover,
+.product-card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
 }
 
-/* Every product photo is forced into the same size box. Because the
-   four source photos are not all the same shape, object-fit: cover
-   is what keeps the grid looking neat and even. */
+.product-photo {
+    overflow: hidden;   /* stops the zoomed image spilling out */
+}
+
 .product-photo img {
     width: 100%;
     height: 240px;
     object-fit: cover;
+    transition: transform 0.4s;
+}
+
+.product-card:hover .product-photo img {
+    transform: scale(1.06);
 }
 
 .product-name {
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 600;
-    padding: 1rem 1rem 0;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.3;
+    padding: 1rem 1rem 0.25rem;
 }
 
 .product-meta {
-    font-size: 0.875rem;
-    color: dimgray;
+    font-size: var(--fs-small);
+    color: var(--grey-text);
     padding: 0 1rem;
     margin-bottom: 0.5rem;
 }
 
-/* margin-top: auto pushes the price down to the bottom of the card,
-   using up whatever empty space is left above it. */
+/* margin-top: auto pushes the price to the bottom of every card
+   so all the prices line up. */
 .price {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-heading);
     font-size: 1.25rem;
     font-weight: 700;
-    color: blue;
-    padding: 0 1rem 1rem;
+    color: var(--blue-deep);
+    padding: 0.75rem 1rem 1rem;
     margin-top: auto;
     margin-bottom: 0;
+    border-top: 1px solid var(--grey-line);
 }
 
 .products-cta {
     text-align: center;
-    background-color: white;
+    background-color: var(--white);
     padding: 2rem;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
 }
 
 .products-cta p {
-    color: dimgray;
+    color: var(--grey-text);
+    margin: 0 auto 1.5rem;
 }
 
 
 /* =============================================================
-   12. FORMS (ENQUIRY AND CONTACT PAGES)
+   11. FORMS (ENQUIRY AND CONTACT PAGES)
    ============================================================= */
 
 form {
-    background-color: white;
-    /* Flexbox in a column stacks the form fields one under the other. */
+    background-color: var(--white);
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     max-width: 560px;
     padding: 2rem;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius);
+    border-top: 4px solid var(--blue);
+    box-shadow: var(--shadow);
 }
 
 label {
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 600;
-    font-size: 0.875rem;
+    font-weight: 700;
+    font-size: var(--fs-small);
     margin-top: 0.5rem;
 }
 
@@ -532,19 +814,13 @@ input,
 select,
 textarea {
     width: 100%;
-    padding: 0.6rem;
-    border: 1px solid gainsboro;
-    border-radius: 4px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1rem;
-}
-
-/* :focus shows the visitor which field they are currently typing in. */
-input:focus,
-select:focus,
-textarea:focus {
-    outline: none;
-    border-color: blue;
+    padding: 0.7rem;
+    border: 2px solid var(--grey-line);
+    border-radius: var(--radius);
+    background-color: var(--white);
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    transition: border-color var(--speed), box-shadow var(--speed);
 }
 
 textarea {
@@ -552,147 +828,297 @@ textarea {
     min-height: 120px;
 }
 
+/* :hover — a hint that the field can be clicked */
+input:hover,
+select:hover,
+textarea:hover {
+    border-color: #a8a8a8;
+}
+
+/* :focus — the field the visitor is typing in */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--blue-deep);
+    box-shadow: 0 0 0 4px rgba(59, 119, 255, 0.25);
+}
+
+/* :required:valid — a required field filled in correctly turns green */
+input:required:valid,
+select:required:valid,
+textarea:required:valid {
+    border-color: var(--valid);
+}
+
+/* :focus:invalid — while typing, a field that is not yet valid
+   (e.g. an email without an @) shows red. */
+input:focus:invalid,
+textarea:focus:invalid {
+    border-color: var(--invalid);
+    box-shadow: 0 0 0 4px rgba(217, 48, 37, 0.2);
+}
+
+/* :disabled — a greyed-out field that cannot be used */
+input:disabled,
+select:disabled,
+textarea:disabled {
+    background-color: var(--off-white);
+    cursor: not-allowed;
+}
+
 .submit-btn {
-    /* Stops the button from stretching across the whole form width. */
     align-self: flex-start;
     margin-top: 1rem;
 }
 
 
 /* =============================================================
-   13. CONTACT PAGE: LOCATIONS
+   12. CONTACT PAGE: DETAILS, LOCATIONS AND MAPS
    ============================================================= */
 
 .contact-details {
-    background-color: white;
+    background-color: var(--white);
     padding: 2rem;
-    border-radius: 4px;
-    border-left: 4px solid blue;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius);
+    border-left: 4px solid var(--blue);
+    box-shadow: var(--shadow);
 }
 
 .contact-details p {
-    color: dimgray;
-    margin-bottom: 0.5rem;
+    color: var(--grey-text);
 }
 
-/* .location-list is a wrapper placed around the two location boxes
-   in the HTML, so the two of them can sit side by side. */
-.location-list {
+/* The "Find Us" heading spans both columns, then the two location
+   boxes sit side by side underneath it. */
+.locations {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
 }
 
+.locations h3 {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+}
+
 .location {
-    background-color: white;
+    background-color: var(--white);
     padding: 2rem;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
 }
 
 .location p {
-    color: dimgray;
-    font-size: 0.875rem;
+    color: var(--grey-text);
+    font-size: var(--fs-small);
 }
 
-/* Placeholder box for the map that gets added in Part 3. */
-.map-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 160px;
-    border: 2px dashed gainsboro;
-    border-radius: 4px;
-    background-color: whitesmoke;
-    color: dimgray;
-    font-size: 0.875rem;
+.map-embed {
+    margin-top: 1rem;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--grey-line);
 }
 
-.map-placeholder p {
-    margin-bottom: 0;
+.map-embed iframe {
+    display: block;
+    width: 100%;
 }
 
 
 /* =============================================================
-   14. RESPONSIVE DESIGN — TABLET
-   A media query only applies its rules when the screen matches the
-   condition, so everything in here only applies on screens 1024px
-   wide or narrower (tablets and smaller).
+   13. RESPONSIVE DESIGN — TABLET (1024px and narrower)
+   Layout, typography, navigation and images all adjust here.
    ============================================================= */
 
 @media (max-width: 1024px) {
 
-    .hero h2 {
-        font-size: 2.75rem;
+    /* ---- Typography: smaller sizes for tablet ---- */
+    :root {
+        --fs-lead: 1.125rem;
+        --fs-h2: 2.25rem;
+        --fs-h3: 1.5rem;
+        --fs-hero: 2.75rem;
+        --fs-logo: 1.5rem;
     }
 
+    /* ---- Layout ---- */
     main {
-        padding: 2rem 1rem;
+        padding: 2rem 1.5rem;
     }
 
-    /* The two-column hero and about layouts become one column, so
-       neither the photo nor the text gets squeezed too narrow. */
-    .hero,
+    main > section {
+        margin-bottom: 3.5rem;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+    }
+
     .about-history {
         grid-template-columns: 1fr;
     }
 
+    .category-list {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* If the last card is alone on its row, let it span both columns. */
+    .category-card:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+    }
+
+    /* Four product columns were too narrow here: now two. */
+    .product-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* ---- Images ---- */
     .hero img,
     .about-history img {
         height: 280px;
     }
 
-    /* Two columns instead of three keeps the "What We Offer" cards
-       from becoming too narrow on a tablet screen. */
-    .category-list {
-        grid-template-columns: 1fr 1fr;
+    .product-photo img {
+        height: 220px;
+    }
+
+    /* ---- Navigation: tighter spacing so five links still fit ---- */
+    header {
+        padding: 1rem 1.5rem;
+    }
+
+    .nav-links {
+        gap: 1.25rem;
     }
 }
 
 
 /* =============================================================
-   15. RESPONSIVE DESIGN — MOBILE
-   Everything in here only applies on screens 600px wide or
-   narrower (most phones).
+   14. RESPONSIVE DESIGN — MOBILE (600px and narrower)
    ============================================================= */
 
 @media (max-width: 600px) {
 
-    .hero h2 {
-        font-size: 2rem;
+    /* ---- Typography: smallest sizes for phones ---- */
+    :root {
+        --fs-base: 0.9375rem;
+        --fs-small: 0.8125rem;
+        --fs-lead: 1.0625rem;
+        --fs-h2: 1.75rem;
+        --fs-h3: 1.375rem;
+        --fs-h4: 1.125rem;
+        --fs-hero: 2.1rem;
+        --fs-logo: 1.35rem;
     }
 
-    /* The header stacks the logo above the menu instead of side by
-       side, since there is not enough width for both on one line. */
-    header {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-    }
-
+    /* ---- Layout: everything becomes a single column ---- */
     main {
-        padding: 2rem 1rem;
+        padding: 1.5rem 1rem;
     }
 
-    /* Every multi-column grid on the site becomes a single column on
-       a small screen, so nothing gets squashed too narrow to read. */
+    main > section {
+        margin-bottom: 2.5rem;
+    }
+
+    .hero {
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
     .product-grid,
     .category-list,
     .values,
-    .location-list {
+    .locations {
         grid-template-columns: 1fr;
     }
 
-    .cta-button-secondary {
+    .category-card,
+    .mission,
+    .vision,
+    .location,
+    .contact-details,
+    form {
+        padding: 1.5rem;
+    }
+
+    /* Buttons stack and fill the width so they are easy to tap. */
+    .cta-button,
+    .cta-button-secondary,
+    .submit-btn {
         display: block;
-        margin-left: 0;
-        margin-top: 0.5rem;
+        width: 100%;
         text-align: center;
+    }
+
+    .cta-button-secondary {
+        margin-left: 0;
+        margin-top: 0.75rem;
+    }
+
+    /* ---- Images ---- */
+    .hero img,
+    .about-history img,
+    .product-photo img {
+        height: 200px;
+    }
+
+    /* ---- Navigation: hamburger menu ---- */
+    header {
+        flex-wrap: wrap;
+        padding: 0.75rem 1rem;
+    }
+
+    .nav-toggle-label {
+        display: block;      /* the hamburger icon appears */
+    }
+
+    header nav {
+        width: 100%;
+        max-height: 0;       /* menu is collapsed by default */
+        overflow: hidden;
+        transition: max-height 0.35s ease;
+    }
+
+    /* :checked — when the checkbox is ticked the menu slides open */
+    .nav-toggle:checked ~ nav {
+        max-height: 320px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 0;
+        padding-top: 0.5rem;
+    }
+
+    .nav-links li {
+        border-top: 1px solid #2a2a2a;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 0.9rem 0.25rem;   /* big tap target */
+    }
+
+    /* The underline animation is replaced by a left bar on phones. */
+    .nav-links a::after {
+        width: 4px;
+        height: 0;
+        top: 15%;
+        bottom: auto;
+        transition: height var(--speed);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a:focus-visible::after,
+    .nav-links a.active::after {
+        width: 4px;
+        height: 70%;
+    }
+
+    .nav-links a {
+        padding-left: 1rem;
     }
 }
