@@ -3,8 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | Sneaks</title>
-    <meta name="description" content="Learn the story behind Sneaks, our authenticity guarantee, mission and vision.">
+    <title>About Sneaks | Our Story and Authenticity Guarantee</title>
+    <meta name="description" content="Meet Sneaks, a Durban sneaker resale store. Learn how we started, our authenticity guarantee, and the mission and vision behind every pair we sell.">
+    <meta name="keywords" content="about Sneaks, sneaker authenticity guarantee, Durban sneaker store, sneaker resale story">
+    <meta name="author" content="Nhlakanipho Bhengu">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0b0b0b">
+    <link rel="canonical" href="https://st10538008.github.io/Sneaks-website/about.html">
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+    <!-- Open Graph / Twitter: the preview card shown when the page is shared -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Sneaks">
+    <meta property="og:locale" content="en_ZA">
+    <meta property="og:title" content="About Sneaks | Our Story and Authenticity Guarantee">
+    <meta property="og:description" content="Meet Sneaks, a Durban sneaker resale store. Learn how we started, our authenticity guarantee, and the mission and vision behind every pair we sell.">
+    <meta property="og:url" content="https://st10538008.github.io/Sneaks-website/about.html">
+    <meta property="og:image" content="https://st10538008.github.io/Sneaks-website/images/sneaks-social-share.jpg">
+    <meta property="og:image:alt" content="Sneaks: a collection of authentic resale sneakers">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About Sneaks | Our Story and Authenticity Guarantee">
+    <meta name="twitter:description" content="Meet Sneaks, a Durban sneaker resale store. Learn how we started, our authenticity guarantee, and the mission and vision behind every pair we sell.">
+    <meta name="twitter:image" content="https://st10538008.github.io/Sneaks-website/images/sneaks-social-share.jpg">
+
+    <!-- Security: only allow scripts, styles, images and requests from the places this site uses -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://jsonplaceholder.typicode.com; form-action 'self' mailto: https://jsonplaceholder.typicode.com; base-uri 'self'; object-src 'none'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -13,7 +37,7 @@
     <header>
         <div class="logo">
             <a href="index.html">
-                <h1>Sneaks</h1>
+                <span class="site-name">Sneaks</span>
             </a>
         </div>
         <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open or close the navigation menu">
@@ -33,7 +57,7 @@
     <main>
 
         <section class="page-heading">
-            <h2>Our Story</h2>
+            <h1>About Sneaks: Our Story</h1>
         </section>
 
         <!-- History / founder story -->
@@ -43,14 +67,16 @@
                 it can pick whichever file actually fits instead of always
                 downloading the biggest one. -->
             <img
-                src="images/solesavy-G6vLu_5egEo-unsplash.jpg"
-                srcset="images/solesavy-G6vLu_5egEo-unsplash-480.jpg 480w,
-                        images/solesavy-G6vLu_5egEo-unsplash.jpg 2731w"
+                src="images/sneaks-founder-sorting-sneakers-1200.jpg"
+                loading="lazy"
+                decoding="async"
+                srcset="images/sneaks-founder-sorting-sneakers-480.jpg 480w,
+                        images/sneaks-founder-sorting-sneakers-1200.jpg 1200w"
                 sizes="(max-width: 1024px) 90vw, 40vw"
                 alt="Founder of Sneaks sorting through a collection of sneakers"
                 width="500">
             <div class="about-text">
-                <h3>How We Started</h3>
+                <h2>How We Started</h2>
                 <p>
                     Our founder's love for sneakers goes all the way back to childhood. He'd
                     collect newspapers and magazines, following every story about the newest
@@ -68,8 +94,8 @@
         </section>
 
         <!-- Authenticity guarantee -->
-        <section class="authenticity">
-            <h3>Our Authenticity Guarantee</h3>
+        <section class="authenticity" id="authenticity">
+            <h2>Our Authenticity Guarantee</h2>
             <p>
                 Every pair sold through Sneaks is inspected and verified before it's listed. We
                 stand behind the authenticity of every sneaker we sell.
@@ -80,25 +106,27 @@
         <div class="values">
             <!-- Mission -->
             <section class="mission">
-                <h3>Our Mission</h3>
+                <h2>Our Mission</h2>
                 <p>To make rare and sought-after sneakers accessible to sneakerheads and collectors, with guaranteed authenticity on every pair.</p>
             </section>
 
             <!-- Vision -->
             <section class="vision">
-                <h3>Our Vision</h3>
+                <h2>Our Vision</h2>
                 <p>To become Durban's most trusted destination for authentic sneaker resale, known for a curated selection and a strong local sneaker community.</p>
             </section>
         </div>
+
+        <section class="more-links"><p>Ready to see what is in stock? <a href="products.html">Browse our current sneaker stock</a>, <a href="enquiry.html">send us an enquiry</a>, or <a href="contact.html">visit our Florida Road store</a>.</p></section>
 
     </main>
 
     <!-- ===== Footer ===== -->
     <footer>
         <p>&copy; 2026 Sneaks. All rights reserved.</p>
-        <p><a href="contact.html">Contact Us</a></p>
+        <p class="footer-links"><a href="index.html">Home</a> | <a href="about.html">About Us</a> | <a href="products.html">Products</a> | <a href="enquiry.html">Enquiry</a> | <a href="contact.html">Contact Us</a></p>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script>
 </body>
 </html>
