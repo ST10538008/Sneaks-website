@@ -16,13 +16,14 @@
    10. Products page
    11. Forms (Enquiry and Contact)
    12. Contact page: locations and maps
+   12b. Part 3 additions (toolbar, lightbox, accordion, forms, map)
    13. Responsive design — tablet (max 1024px)
    14. Responsive design — mobile (max 600px)
    ============================================================= */
 
 
 /* =============================================================
-    1. DESIGN TOKENS
+   1. DESIGN TOKENS
    Every colour, font and size is stored once here as a CSS
    variable and reused with var(--name). Changing a value here
    changes it on every page, and it keeps the look consistent.
@@ -130,6 +131,7 @@ main > section:last-child {
    line heights and letter spacing, so text is styled consistently.
    ============================================================= */
 
+h1,
 h2,
 h3,
 h4 {
@@ -139,19 +141,23 @@ h4 {
     letter-spacing: -0.01em;
 }
 
-h2 {
+h1 {
     font-size: var(--fs-h2);
     margin-bottom: 1rem;
 }
 
-h3 {
+h2 {
     font-size: var(--fs-h3);
     margin-bottom: 0.75rem;
 }
 
-h4 {
+h3 {
     font-size: var(--fs-h4);
     margin-bottom: 0.5rem;
+}
+
+/* Store names (Main Store, Weekend Pop-Up) keep the uppercase label look. */
+.location h3 {
     text-transform: uppercase;
     letter-spacing: 0.04em;
 }
@@ -210,12 +216,20 @@ strong {
    :not() leaves buttons out so they keep their own styles.
    ============================================================= */
 
+/* No link is underlined by default (navigation, buttons, footer). */
 a {
     text-decoration: none;
 }
-   main a:not(.cta-button):not(.cta-button-secondary):link {
+
+main a:not(.cta-button):not(.cta-button-secondary):link {
     color: var(--blue-deep);
-    text-decoration: none;
+}
+
+/* The exception: links written inside a paragraph keep an underline,
+   so they can be told apart from the surrounding text by more than
+   colour alone (an accessibility requirement). */
+main p a:not(.cta-button):not(.cta-button-secondary) {
+    text-decoration: underline;
     text-underline-offset: 3px;
 }
 
@@ -225,6 +239,9 @@ main a:not(.cta-button):not(.cta-button-secondary):visited {
 
 main a:not(.cta-button):not(.cta-button-secondary):hover {
     color: var(--blue-darker);
+}
+
+main p a:not(.cta-button):not(.cta-button-secondary):hover {
     text-decoration-thickness: 2px;
 }
 
@@ -353,7 +370,7 @@ header {
     display: inline-block;
 }
 
-.logo h1 {
+.logo .site-name {
     font-family: var(--font-heading);
     font-size: var(--fs-logo);
     font-weight: 900;
@@ -364,7 +381,7 @@ header {
     transition: color var(--speed);
 }
 
-.logo a:hover h1 {
+.logo a:hover .site-name {
     color: var(--blue);
 }
 
@@ -503,8 +520,6 @@ footer p {
 footer a:link,
 footer a:visited {
     color: var(--blue);
-    text-decoration: none;
-    text-underline-offset: 3px;
 }
 
 footer a:hover {
@@ -545,7 +560,7 @@ footer a:hover {
     margin-bottom: 0.5rem;
 }
 
-.hero h2 {
+.hero h1 {
     font-size: var(--fs-hero);
     line-height: 1.05;
     margin-bottom: 1rem;
@@ -673,7 +688,7 @@ footer a:hover {
     border-left: 6px solid var(--blue);
 }
 
-.authenticity h3 {
+.authenticity h2 {
     color: var(--blue);
 }
 
@@ -897,7 +912,7 @@ textarea:disabled {
     gap: 2rem;
 }
 
-.locations h3 {
+.locations h2 {
     grid-column: 1 / -1;
     margin-bottom: 0;
 }
@@ -924,6 +939,541 @@ textarea:disabled {
 .map-embed iframe {
     display: block;
     width: 100%;
+}
+
+
+/* =============================================================
+   12b. PART 3 ADDITIONS (supports js/script.js)
+   Styles for the features JavaScript adds: product toolbar,
+   lightbox, accordion, form messages, map and animations.
+   ============================================================= */
+
+/* The hidden attribute must always win, even over display:flex/grid. */
+[hidden] {
+    display: none !important;
+}
+
+/* Stops the page behind the lightbox from scrolling. */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* ---------- Product toolbar (search, filter, sort) ---------- */
+.product-toolbar {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1rem 1.5rem;
+    background-color: var(--white);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: var(--radius);
+    border-top: 4px solid var(--blue);
+    box-shadow: var(--shadow);
+}
+
+.toolbar-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.toolbar-field label {
+    margin-top: 0;
+}
+
+.result-count {
+    grid-column: 1 / -1;
+    margin: 0;
+    max-width: none;
+    font-size: var(--fs-small);
+    font-weight: 700;
+    color: var(--grey-text);
+}
+
+/* Shown when a search matches nothing. It fills the whole grid row. */
+.no-results {
+    grid-column: 1 / -1;
+    background-color: var(--white);
+    padding: 3rem 2rem;
+    text-align: center;
+    border: 2px dashed var(--grey-line);
+    border-radius: var(--radius);
+}
+
+.no-results p {
+    margin: 0 auto 1.5rem;
+    color: var(--grey-text);
+}
+
+/* ---------- Product cards drawn by JavaScript ---------- */
+.product-photo {
+    position: relative;
+}
+
+/* "backwards" applies the starting look only BEFORE the animation,
+   so it does not interfere with the hover lift afterwards. */
+.product-card {
+    animation: cardIn 0.45s ease backwards;
+    animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@keyframes cardIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+}
+
+.product-photo img {
+    cursor: zoom-in;
+}
+
+.zoom-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background-color: rgba(11, 11, 11, 0.8);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color var(--speed), color var(--speed);
+}
+
+.zoom-btn:hover {
+    background-color: var(--blue-deep);
+}
+
+.zoom-btn:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 2px;
+}
+
+/* ---------- Lightbox (built on the <dialog> element) ---------- */
+.lightbox {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--white);
+}
+
+.lightbox[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ::backdrop is the dark layer behind a modal dialog. */
+.lightbox::backdrop {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.lightbox-figure {
+    max-width: 92vw;
+    text-align: center;
+}
+
+.lightbox-img {
+    max-width: 92vw;
+    max-height: 76vh;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
+    border-radius: var(--radius);
+    animation: lightboxIn 0.3s ease;
+}
+
+@keyframes lightboxIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+}
+
+.lightbox-caption {
+    margin-top: 1rem;
+    font-size: var(--fs-small);
+    color: #e0e0e0;
+}
+
+.lightbox-close,
+.lightbox-nav {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.12);
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color var(--speed);
+}
+
+.lightbox-close:hover,
+.lightbox-nav:hover {
+    background-color: var(--blue-deep);
+}
+
+.lightbox-close:focus-visible,
+.lightbox-nav:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+}
+
+.lightbox-close {
+    top: 1rem;
+    right: 1rem;
+}
+
+.lightbox-nav {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lightbox-prev {
+    left: 1rem;
+}
+
+.lightbox-next {
+    right: 1rem;
+}
+
+/* ---------- FAQ accordion ---------- */
+.accordion {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.accordion-heading {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: inherit;
+    letter-spacing: 0;
+    text-transform: none;
+    border-bottom: 1px solid var(--grey-line);
+}
+
+.accordion-trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1.1rem 1.5rem;
+    background-color: var(--white);
+    border: none;
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    font-weight: 700;
+    text-align: left;
+    color: var(--black);
+    cursor: pointer;
+    transition: background-color var(--speed), color var(--speed);
+}
+
+/* ::after draws the + sign, which becomes a minus when open. */
+.accordion-trigger::after {
+    content: "+";
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--blue-deep);
+    transition: transform var(--speed);
+}
+
+.accordion-trigger:hover {
+    background-color: var(--off-white);
+}
+
+.accordion-trigger:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: -3px;
+}
+
+/* An attribute selector: styles the button only while it is expanded. */
+.accordion-trigger[aria-expanded="true"] {
+    color: var(--blue-deep);
+}
+
+.accordion-trigger[aria-expanded="true"]::after {
+    content: "\2212";   /* minus sign */
+    transform: rotate(180deg);
+}
+
+/* Smooth open/close: the row grows from 0 to its natural height. */
+.accordion-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+}
+
+.accordion-panel.open {
+    grid-template-rows: 1fr;
+}
+
+.accordion-inner {
+    overflow: hidden;
+}
+
+.accordion-inner p {
+    padding: 0.25rem 1.5rem 1.25rem;
+    color: var(--grey-text);
+}
+
+/* ---------- Form groups, errors and counters ---------- */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* The red message under a field that failed validation. */
+.field-error {
+    margin: 0;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    color: var(--invalid);
+}
+
+/* An attribute selector: any field JavaScript has marked invalid. */
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+    border-color: var(--invalid);
+    background-color: #fff6f5;
+}
+
+.char-count {
+    margin: 0;
+    font-size: var(--fs-small);
+    text-align: right;
+    color: var(--grey-text);
+}
+
+.char-count.over-limit {
+    color: var(--invalid);
+    font-weight: 700;
+}
+
+/* ---------- Reply boxes (enquiry reply, email preview) ---------- */
+.response-box {
+    max-width: 560px;
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border-left: 6px solid var(--blue);
+    animation: cardIn 0.4s ease backwards;
+}
+
+.response-box.success {
+    border-left-color: var(--valid);
+}
+
+.response-box.failure {
+    border-left-color: var(--invalid);
+}
+
+.response-box ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.response-box li {
+    margin-bottom: 0.5rem;
+}
+
+.response-box li:last-child {
+    margin-bottom: 0;
+}
+
+.response-ref {
+    font-size: var(--fs-small);
+    color: var(--grey-text);
+}
+
+.response-box:focus {
+    outline: none;
+}
+
+.email-details {
+    margin: 1rem 0;
+}
+
+.email-details dt {
+    font-weight: 700;
+    font-size: var(--fs-small);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--grey-text);
+}
+
+.email-details dd {
+    margin: 0 0 0.75rem;
+    word-break: break-word;
+}
+
+.email-body {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--off-white);
+    border: 1px solid var(--grey-line);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* ---------- Contact page map ---------- */
+.location .cta-button-secondary {
+    margin-left: 0;
+    margin-top: 1rem;
+}
+
+.map-canvas {
+    grid-column: 1 / -1;
+    height: 380px;
+    border-radius: var(--radius);
+    border: 1px solid var(--grey-line);
+    box-shadow: var(--shadow);
+    z-index: 0;   /* keeps the map underneath the sticky header */
+}
+
+.map-canvas.map-failed {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    background-color: var(--white);
+    color: var(--grey-text);
+}
+
+/* ---------- Back-to-top button ---------- */
+.back-to-top {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 90;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--blue-deep);
+    color: var(--white);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: var(--shadow-hover);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity var(--speed), transform var(--speed),
+                visibility var(--speed), background-color var(--speed);
+}
+
+.back-to-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+
+.back-to-top:hover {
+    background-color: var(--blue-darker);
+}
+
+.back-to-top:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+}
+
+/* ---------- Scroll reveal animation ---------- */
+.reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* Visitors who ask for less motion get no animations at all. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Part 3 components on small screens */
+@media (max-width: 600px) {
+    .product-toolbar {
+        grid-template-columns: 1fr;
+        padding: 1.25rem;
+    }
+
+    .response-box {
+        padding: 1.5rem;
+    }
+
+    .map-canvas {
+        height: 300px;
+    }
+
+    .accordion-trigger {
+        padding: 1rem;
+    }
+
+    .accordion-inner p {
+        padding: 0.25rem 1rem 1rem;
+    }
+
+    .lightbox-nav {
+        top: auto;
+        bottom: 1.5rem;
+        transform: none;
+    }
+
+    .lightbox-prev {
+        left: calc(50% - 60px);
+    }
+
+    .lightbox-next {
+        right: calc(50% - 60px);
+    }
+
+    .lightbox-caption {
+        margin-bottom: 4rem;
+    }
 }
 
 
@@ -1121,4 +1671,20 @@ textarea:disabled {
     .nav-links a {
         padding-left: 1rem;
     }
+}
+
+
+/* =============================================================
+   15. PART 3 — SEO ADDITIONS
+   ============================================================= */
+
+/* Extra internal-link paragraph at the bottom of About, Enquiry
+   and Contact, and the footer navigation row. */
+.more-links p {
+    color: var(--grey-text);
+    max-width: none;
+}
+
+.footer-links a {
+    white-space: nowrap;
 }
