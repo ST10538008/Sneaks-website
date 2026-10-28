@@ -1688,3 +1688,147 @@ textarea[aria-invalid="true"] {
 .footer-links a {
     white-space: nowrap;
 }
+
+
+/* =============================================================
+   16. MAP STYLING (LEAFLET)
+   Gives the map the same black-and-blue look as the rest of the
+   site: custom pins, rounded controls and a styled pop-up.
+   ============================================================= */
+
+.map-canvas {
+    font-family: var(--font-body);
+    overflow: hidden;
+}
+
+/* ---- Custom pin: a blue teardrop with a white dot ---- */
+.sneaks-pin {
+    background: none;
+    border: 0;
+}
+
+.sneaks-pin span {
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+    background-color: var(--blue-deep);
+    border: 3px solid var(--white);
+    border-radius: 50% 50% 50% 0;     /* teardrop shape */
+    transform: rotate(-45deg);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+    transition: background-color var(--speed), transform var(--speed);
+}
+
+/* ::after is the white dot in the middle of the pin */
+.sneaks-pin span::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
+    background-color: var(--white);
+    border-radius: 50%;
+}
+
+.sneaks-pin:hover span,
+.sneaks-pin:focus-visible span {
+    background-color: var(--black);
+    transform: rotate(-45deg) scale(1.12);
+}
+
+.sneaks-pin:focus-visible {
+    outline: none;
+}
+
+.sneaks-pin:focus-visible span {
+    box-shadow: 0 0 0 4px rgba(59, 119, 255, 0.55);
+}
+
+/* ---- Pop-up ---- */
+.leaflet-popup-content-wrapper {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-hover);
+    border-top: 4px solid var(--blue);
+}
+
+.leaflet-popup-content {
+    margin: 0.9rem 1rem;
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+}
+
+.map-popup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.map-popup strong {
+    font-family: var(--font-heading);
+    font-size: var(--fs-base);
+}
+
+.map-popup span {
+    color: var(--grey-text);
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+    color: var(--grey-text);
+}
+
+.leaflet-container .map-popup a {
+    align-self: flex-start;
+    margin-top: 0.25rem;
+    padding: 0.35rem 0.9rem;
+    background-color: var(--blue-deep);
+    color: var(--white);
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: var(--radius);
+    transition: background-color var(--speed);
+}
+
+.leaflet-container .map-popup a:hover,
+.leaflet-container .map-popup a:focus-visible {
+    background-color: var(--blue-darker);
+}
+
+/* ---- Zoom buttons and layer switcher ---- */
+.leaflet-bar,
+.leaflet-control-layers {
+    border: 0;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-hover);
+    overflow: hidden;
+}
+
+.leaflet-bar a {
+    background-color: var(--black);
+    color: var(--white);
+    border-bottom-color: #2a2a2a;
+    transition: background-color var(--speed);
+}
+
+.leaflet-bar a:hover,
+.leaflet-bar a:focus-visible {
+    background-color: var(--blue-deep);
+    color: var(--white);
+}
+
+.leaflet-control-layers-expanded {
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-body);
+    font-size: var(--fs-small);
+}
+
+.leaflet-control-layers-toggle {
+    background-color: var(--black);
+    border-radius: var(--radius);
+}
+
+.leaflet-container .leaflet-control-attribution {
+    font-size: 0.7rem;
+}
