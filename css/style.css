@@ -1803,6 +1803,16 @@ textarea[aria-invalid="true"] {
     background-color: var(--blue-darker);
 }
 
+/* The general link rules colour links blue, which hides the text on the
+   blue "Get directions" button, so white is forced in every link state. */
+main .leaflet-container .map-popup a:link,
+main .leaflet-container .map-popup a:visited,
+main .leaflet-container .map-popup a:hover,
+main .leaflet-container .map-popup a:active,
+main .leaflet-container .map-popup a:focus-visible {
+    color: var(--white);
+}
+
 /* ---- Zoom buttons and layer switcher ---- */
 .leaflet-bar,
 .leaflet-control-layers {
