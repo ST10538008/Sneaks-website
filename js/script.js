@@ -533,7 +533,10 @@ function getErrorElement(input) {
         element.id = id;
         element.className = 'field-error';
         element.hidden = true;
-        input.insertAdjacentElement('afterend', element);
+        /* A checkbox sits inside a wrapper with its label, so the message
+           goes after the wrapper instead of between the box and its text. */
+        const anchor = input.type === 'checkbox' ? input.closest('.checkbox-field') : input;
+        anchor.insertAdjacentElement('afterend', element);
         input.setAttribute('aria-describedby', id);
     }
     return element;
@@ -557,7 +560,10 @@ function clearError(input) {
 function getFormValues(form) {
     const values = {};
     $$('input, select, textarea', form).forEach(field => {
-        if (field.id) values[field.id] = field.value.trim();
+        if (!field.id) return;
+        values[field.id] = field.type === 'checkbox'
+            ? (field.checked ? 'Yes' : 'No')
+            : field.value.trim();
     });
     return values;
 }
@@ -570,7 +576,9 @@ function validateField(input, rules, form) {
         clearError(input);
         return true;
     }
-    const message = rule(input.value.trim(), getFormValues(form));
+    /* A checkbox counts as filled in only when it is ticked. */
+    const value = input.type === 'checkbox' ? (input.checked ? 'yes' : '') : input.value.trim();
+    const message = rule(value, getFormValues(form));
     if (message) {
         showError(input, message);
         return false;
@@ -591,11 +599,13 @@ function attachValidation(form, rules) {
 
     /* Once a field is marked wrong, re-check it on every keystroke
        so the message disappears the moment it is fixed. */
-    form.addEventListener('input', event => {
+    const recheck = event => {
         if (event.target.getAttribute('aria-invalid') === 'true') {
             validateField(event.target, rules, form);
         }
-    });
+    };
+    form.addEventListener('input', recheck);
+    form.addEventListener('change', recheck);
 
     return function validateAll() {
         let firstInvalid = null;
@@ -625,6 +635,11 @@ function addCharCounter(textarea, max) {
 }
 
 /* Checks used by more than one form */
+/* The consent checkbox on both forms must be ticked. */
+function checkConsent(value) {
+    return value ? '' : 'Please tick the box to agree before you continue.';
+}
+
 function checkName(value) {
     if (!value) return 'Please enter your full name.';
     if (value.length < 2) return 'Your name must be at least 2 characters.';
@@ -781,6 +796,7 @@ function initEnquiryForm() {
         'phone': value => checkPhone(value, true),
 
         'enquiry-type': value => value ? '' : 'Please choose an enquiry type.',
+        'consent': checkConsent,
 
         'sneaker-model': (value, all) => {
             const needed = all['enquiry-type'] === 'reserve' || all['enquiry-type'] === 'offer';
@@ -914,6 +930,7 @@ function initContactForm() {
         'contact-email': checkEmail,
         'contact-phone': value => checkPhone(value, false),   // optional
         'contact-type': value => value ? '' : 'Please choose what your message is about.',
+        'contact-consent': checkConsent,
         'contact-message': value => {
             if (!value) return 'Please type your message.';
             if (value.length < 10) return 'Your message must be at least 10 characters.';

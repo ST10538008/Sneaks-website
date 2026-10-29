@@ -24,6 +24,7 @@
    14. Responsive design — mobile (max 600px)
    15. Part 3 SEO additions (internal links, footer links)
    16. Map styling (custom pins, pop-ups, map controls)
+   17. Consent checkbox (enquiry and contact forms)
    ============================================================= */
 
 
@@ -1836,4 +1837,41 @@ textarea[aria-invalid="true"] {
 
 .leaflet-container .leaflet-control-attribution {
     font-size: 0.7rem;
+}
+
+
+/* =============================================================
+   17. CONSENT CHECKBOX
+   The tick box and its label sit side by side. The general input
+   rules make fields full width, so the checkbox needs its own.
+   ============================================================= */
+
+.checkbox-field {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.checkbox-field input[type="checkbox"] {
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.2rem;
+    padding: 0;
+    accent-color: var(--blue-deep);   /* ticked colour matches the brand */
+    cursor: pointer;
+}
+
+.checkbox-field label {
+    margin-top: 0;
+    font-weight: 400;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+/* [aria-invalid] — the box gets a red outline until it is ticked */
+.checkbox-field input[aria-invalid="true"] {
+    outline: 2px solid var(--invalid);
+    outline-offset: 2px;
 }
