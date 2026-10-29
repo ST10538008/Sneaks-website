@@ -872,7 +872,7 @@ function showEnquiryReply(box, reply, data) {
 
     const footer = document.createElement('p');
     footer.className = 'response-ref';
-    footer.textContent = `Thanks, ${data['full-name'].split(' ')[0]}. Your reference is ${reference}. A copy will be sent to ${data.email}.`;
+    footer.textContent = `Thanks, ${data['full-name'].split(' ')[0]}. Your reference is ${reference}. Please quote it when we reply to ${data.email}.`;
 
     box.className = 'response-box success';
     box.replaceChildren(heading, list, footer);
