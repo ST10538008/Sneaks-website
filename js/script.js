@@ -978,7 +978,7 @@ function showEmailPreview(box, email) {
     heading.textContent = 'Your message is ready to send';
 
     const intro = document.createElement('p');
-    intro.textContent = 'Check the details below. When you are happy, press Send Email and your email app will open with this message ready to send.';
+    intro.textContent = 'Check the details below, then press Send Email to open your email app. No email app on this device? Use Open in Gmail or Copy email text instead.';
 
     const details = document.createElement('dl');
     details.className = 'email-details';
@@ -994,13 +994,56 @@ function showEmailPreview(box, email) {
     message.className = 'email-body';
     message.textContent = email.body;
 
+    /* Option 1: open the visitor's email app (a mailto: link). */
     const button = document.createElement('a');
     button.className = 'cta-button';
     button.href = email.mailtoLink;
     button.textContent = 'Send Email';
 
+    /* Option 2: if there is no email app, open Gmail in the browser
+       with the same message already filled in. */
+    const gmail = document.createElement('a');
+    gmail.className = 'cta-button-secondary';
+    gmail.href = 'https://mail.google.com/mail/?view=cm&fs=1' +
+        `&to=${encodeURIComponent(email.recipient)}` +
+        `&su=${encodeURIComponent(email.subject)}` +
+        `&body=${encodeURIComponent(email.body)}`;
+    gmail.target = '_blank';
+    gmail.rel = 'noopener noreferrer';
+    gmail.textContent = 'Open in Gmail';
+
+    /* Option 3: copy the whole email so it can be pasted anywhere. */
+    const copy = document.createElement('button');
+    copy.type = 'button';
+    copy.className = 'cta-button-secondary';
+    copy.textContent = 'Copy email text';
+
+    const status = document.createElement('p');
+    status.className = 'copy-status';
+    status.setAttribute('role', 'status');   // read out by screen readers
+
+    copy.addEventListener('click', async () => {
+        const fullText = `To: ${email.recipient}\nSubject: ${email.subject}\n\n${email.body}`;
+        try {
+            await navigator.clipboard.writeText(fullText);
+            status.textContent = `Copied. Paste it into a new email addressed to ${email.recipient}.`;
+        } catch (error) {
+            /* Copying was blocked, so select the text: Ctrl+C will work. */
+            const range = document.createRange();
+            range.selectNodeContents(message);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            status.textContent = 'Your browser blocked copying. The message is selected, so press Ctrl+C to copy it.';
+        }
+    });
+
+    const actions = document.createElement('div');
+    actions.className = 'email-actions';
+    actions.append(button, gmail, copy);
+
     box.className = 'response-box success';
-    box.replaceChildren(heading, intro, details, message, button);
+    box.replaceChildren(heading, intro, details, message, actions, status);
     box.hidden = false;
     box.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'center' });
 }

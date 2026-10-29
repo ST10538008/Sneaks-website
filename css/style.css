@@ -25,6 +25,7 @@
    15. Part 3 SEO additions (internal links, footer links)
    16. Map styling (custom pins, pop-ups, map controls)
    17. Consent checkbox (enquiry and contact forms)
+   18. Email action buttons (contact form preview)
    ============================================================= */
 
 
@@ -1874,4 +1875,28 @@ textarea[aria-invalid="true"] {
 .checkbox-field input[aria-invalid="true"] {
     outline: 2px solid var(--invalid);
     outline-offset: 2px;
+}
+
+
+/* =============================================================
+   18. EMAIL ACTION BUTTONS
+   The three ways to send the compiled email (email app, Gmail,
+   or copy the text) sit in one row that wraps on small screens.
+   ============================================================= */
+
+.email-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.email-actions .cta-button-secondary {
+    margin-left: 0;
+}
+
+.copy-status {
+    margin-top: 0.75rem;
+    font-size: var(--fs-small);
+    color: var(--grey-text);
 }
